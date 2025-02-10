@@ -1,0 +1,175 @@
+/* Basic CSS Reset */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Import Press Start 2P font from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+:root {
+    --global-spacing: 15px; /* Adjust this value to change the overall spacing */
+}
+
+body {
+    font-family: 'Press Start 2P', monospace; /* Retro font */
+    margin: var(--global-spacing);
+    padding: 0;
+    background-color: black; /* Black background */
+    color: white; /* White text */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    text-align: center;
+    padding: var(--global-spacing);
+    background-color: black; /* Solid black */
+    color: white; /* White text */
+    width: 100%;
+    height: auto; /* Adjust height as needed */
+    border-bottom: 2px solid white; /* White border */
+}
+
+header h1 {
+    margin-bottom: 0.5em; /* Adjust spacing */
+}
+
+header p {
+    font-size: 0.8em;
+}
+
+main {
+    width: 80%;
+    padding: var(--global-spacing);
+    background-color: black; /* Solid black */
+    box-shadow: none; /* Remove shadow */
+    margin-bottom: 0px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#generation-options {
+    height: auto; /* Adjust height as needed */
+    margin-bottom: var(--global-spacing);
+}
+
+.tab-container {
+    display: flex;
+    justify-content: space-around;
+    height: auto; /* Adjust height as needed */
+    align-items: center;
+}
+
+.tab-container label {
+    padding: calc(var(--global-spacing) / 2) var(--global-spacing); /* Adjust padding as needed */
+    background-color: black; /* Black tabs */
+    border: 2px solid white; /* White border */
+    cursor: pointer;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white; /* White text */
+}
+
+.tab-container input[type="radio"] {
+    display: none;
+}
+
+.tab-container input[type="radio"]:checked + label {
+    background-color: white; /* White when selected */
+    color: black; /* Black text when selected */
+}
+
+#input-area {
+    min-height: 300px; /* Adjust this value as needed */
+    margin-bottom: var(--global-spacing);
+    position: relative; /* Needed for absolute positioning of inputs */
+}
+
+textarea,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select {
+    padding: 8px;
+    border: 2px solid white; /* White border */
+    border-radius: 0; /* Remove rounded corners */
+    margin-bottom: var(--global-spacing);
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'Press Start 2P', monospace; /* Retro font */
+    background-color: black; /* Black inputs */
+    color: white; /* White text */
+}
+
+textarea {
+    resize: none; /* No resizing */
+}
+
+#link-text-input,
+#contact-info-inputs,
+#wifi-code-inputs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+button {
+    padding: var(--global-spacing);
+    background-color: white; /* White button */
+    color: black; /* Black text */
+    border: none;
+    cursor: pointer;
+    height: auto;
+    width: 100%;
+    border-radius: 0; /* Remove rounded corners */
+    font-size: 1em;
+    font-family: 'Press Start 2P', monospace; /* Retro font */
+    text-transform: uppercase; /* Optional: Make button text uppercase */
+}
+
+button:hover {
+    background-color: #ddd; /* Slightly darker hover */
+}
+
+#qrcode {
+    margin-top: var(--global-spacing);
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: var(--global-spacing);
+    border: 2px solid white;
+    margin-left: auto; /* Add auto margin to the left */
+    margin-right: auto; /* Add auto margin to the right */
+}
+
+#error-message {
+    color: red; /* Keep error messages red */
+}
+
+/* Checkbox styling */
+.checkbox-container {
+    display: flex;
+    align-items: center; /* Vertically center items */
+    margin-bottom: 5px; /* Add space below each container */
+}
+
+.checkbox-container label {
+    margin-right: 10px; /* Add space between checkbox and text */
+    display: inline-block; /* Removes block-level margin */
+}
+
+/* Style the Checkboxes */
+.checkbox-container input[type="checkbox"] {
+    margin-right: 5px; /* Add space between checkbox and text */
+}

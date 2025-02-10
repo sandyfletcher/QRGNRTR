@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QRGNRTR - Generate Shareable QR Codes</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="js/qrcode.js"></script>
+</head>
+<body>
+    <header>
+        <h1>QRGNRTR</h1>
+        <p>Shareable QR Codes</p>
+    </header>
+
+    <main>
+        <div id="generation-options">
+            <div class="tab-container">
+                <input type="radio" id="link-text-tab" name="tab" value="link-text" checked>
+                <label for="link-text-tab">Link/Text</label>
+
+                <input type="radio" id="contact-info-tab" name="tab" value="contact-info">
+                <label for="contact-info-tab">Contact Info</label>
+
+                <input type="radio" id="wifi-code-tab" name="tab" value="wifi-code">
+                <label for="wifi-code-tab">WiFi Code</label>
+            </div>
+        </div>
+
+        <div id="input-area">
+            <!-- Link/Text Input -->
+            <textarea id="link-text-input" placeholder="Enter text or URL" maxlength="1000"></textarea>
+
+            <!-- Contact Info Input (Hidden by Default) -->
+            <div id="contact-info-inputs" style="display: none;">
+                <input type="text" id="contact-name" placeholder="Name" maxlength="100"><br>
+                <input type="text" id="contact-phone" placeholder="Phone" maxlength="20"><br>
+                <input type="email" id="contact-email" placeholder="Email" maxlength="100"><br>
+                <input type="text" id="contact-address" placeholder="Address" maxlength="200"><br>
+                <!-- Add more contact fields as needed -->
+            </div>
+
+            <!-- WiFi Code Input (Hidden by Default) -->
+            <div id="wifi-code-inputs" style="display: none;">
+                <input type="text" id="wifi-ssid" placeholder="SSID (Network Name)" maxlength="32">
+                <input type="password" id="wifi-password" placeholder="Password" maxlength="64"><br>
+
+                <input type="checkbox" id="wifi-hidden">
+                <label for="wifi-hidden">Network Hidden?</label>
+
+                <input type="checkbox" id="wifi-nopass">
+                <label for="wifi-nopass">Open (No Password)</label>
+
+            </div>
+
+        </div>
+
+        <button id="generate-button">Generate</button>
+
+        <div id="qrcode"></div>
+
+        <div id="error-message" style="color: red;"></div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
