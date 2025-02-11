@@ -3,27 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QRGNRTR - Generate Shareable QR Codes</title>
+    <meta name="description" content="Generate Shareable QR Codes">
+    <title>QRGNRTR</title>
     <link rel="stylesheet" href="style.css">
     <script src="js/qrcode.js"></script>
 </head>
 <body>
     <header>
         <h1>QRGNRTR</h1>
-        <p>Shareable QR Codes</p>
+        <h3>Shareable QR Codes</h3>
     </header>
 
     <main>
         <div id="generation-options">
             <div class="tab-container">
                 <input type="radio" id="link-text-tab" name="tab" value="link-text" checked>
-                <label for="link-text-tab">Link/Text</label>
-
+                <label for="link-text-tab">Link / Text</label>
+            
                 <input type="radio" id="contact-info-tab" name="tab" value="contact-info">
                 <label for="contact-info-tab">Contact Info</label>
-
+            
                 <input type="radio" id="wifi-code-tab" name="tab" value="wifi-code">
-                <label for="wifi-code-tab">WiFi Code</label>
+                <label for="wifi-code-tab">WiFi Access</label>
             </div>
         </div>
 
@@ -31,16 +32,15 @@
             <!-- Link/Text Input -->
             <textarea id="link-text-input" placeholder="Enter text or URL" maxlength="1000"></textarea>
 
-            <!-- Contact Info Input (Hidden by Default) -->
+            <!-- Contact Info Input -->
             <div id="contact-info-inputs" style="display: none;">
                 <input type="text" id="contact-name" placeholder="Name" maxlength="100"><br>
                 <input type="text" id="contact-phone" placeholder="Phone" maxlength="20"><br>
                 <input type="email" id="contact-email" placeholder="Email" maxlength="100"><br>
                 <input type="text" id="contact-address" placeholder="Address" maxlength="200"><br>
-                <!-- Add more contact fields as needed -->
             </div>
 
-            <!-- WiFi Code Input (Hidden by Default) -->
+            <!-- WiFi Code Input -->
             <div id="wifi-code-inputs" style="display: none;">
                 <input type="text" id="wifi-ssid" placeholder="SSID (Network Name)" maxlength="32">
                 <input type="password" id="wifi-password" placeholder="Password" maxlength="64"><br>
