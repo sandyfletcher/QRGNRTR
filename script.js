@@ -14,17 +14,6 @@ function isValidEmail(email) {
     return emailRegex.test(email);
 }
 
-// Function to display error messages
-function displayError(message) {
-    document.getElementById('error-message').textContent = message;
-}
-
-// Function to clear error messages
-function clearError() {
-    document.getElementById('error-message').textContent = '';
-}
-
-
 // Function to format contact info into a vCard
 function formatVCard(name, phone, email, address) {
     let vCard = `BEGIN:VCARD
@@ -43,13 +32,17 @@ function formatWifiCode(ssid, password, hidden, noPassword) {
     return `WIFI:S:${ssid};T:${security};P:${password};H:${hidden};`;
 }
 
+// Function to update the footer message
+function updateFooterMessage(message) {
+    document.getElementById('footer-message').innerHTML = message; // Use innerHTML
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     const linkTextInput = document.getElementById('link-text-input');
     const contactInfoInputs = document.getElementById('contact-info-inputs');
     const wifiCodeInputs = document.getElementById('wifi-code-inputs'); // Corrected ID
     const generateButton = document.getElementById('generate-button');
     const qrcodeDiv = document.getElementById('qrcode');
-    const errorMessageDiv = document.getElementById('error-message'); // Assuming you have this in your HTML
     const qrCodeImageWidth = 256; // Define the initial QR code image size (used until an image is generated)
 
     // Function to switch between input areas
@@ -79,7 +72,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     generateButton.addEventListener('click', function() {
-        clearError();
         let selectedTab = document.querySelector('input[name="tab"]:checked').value;
         let qrText = "";
         const maxLength = 1000; // Define your maximum length
@@ -89,12 +81,12 @@ document.addEventListener('DOMContentLoaded', function() {
             case 'link-text':
                 qrText = linkTextInput.value;
                 if (qrText.length > maxLength) {
-                    displayError(`Input text exceeds the maximum length of ${maxLength} characters.`);
+                    updateFooterMessage(`Input text exceeds the maximum length of ${maxLength} characters.`);
                     return; // Stop QR code generation
                 }
                 if (qrText.startsWith('http://') || qrText.startsWith('https://')) {
                     if (!isValidURL(qrText)) {
-                        displayError("Invalid URL. Please enter a valid URL.");
+                        updateFooterMessage("Invalid URL. Please enter a valid URL.");
                         return;
                     }
                 }
@@ -106,12 +98,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 const address = document.getElementById('contact-address').value;
 
                 if (name.length > 100 || phone.length > 20 || email.length > 100 || address.length > 200) {
-                  displayError(`One or more contact information fields exceed the maximum length.`);
+                  updateFooterMessage(`One or more contact information fields exceed the maximum length.`);
                   return;
                 }
 
                 if (!isValidEmail(email)) {
-                    displayError("Invalid Email Format.  Email must be in the format <name>@<domain>.<tld> .");
+                    updateFooterMessage("Invalid Email Format.  Email must be in the format <name>@<domain>.<tld> .");
                     return;
                 }
                 qrText = formatVCard(name, phone, email, address);
@@ -123,12 +115,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 const noPassword = document.getElementById('wifi-nopass').checked;  // Get boolean value
 
                 if (ssid.length > 32 || password.length > 64) {
-                    displayError(`SSID or Password exceeds the maximum length.`);
+                    updateFooterMessage(`SSID or Password exceeds the maximum length.`);
                     return;
                 }
 
                 if (password === "" && !noPassword) {
-                    displayError("Please enter a password, or check the 'Open (No Password)' box if the network is open.");
+                    updateFooterMessage("Please enter a password, or check the 'Open (No Password)' box if the network is open.");
                     return;
                 }
 
@@ -158,8 +150,10 @@ document.addEventListener('DOMContentLoaded', function() {
             qrcodeDiv.style.width = `${containerWidth}px`;
             qrcodeDiv.style.height = `${containerHeight}px`;
 
+            updateFooterMessage("QR Code Generated!"); // Update footer on success
+
         } catch (error) {
-            displayError("Error generating QR code: " + error.message);
+            updateFooterMessage("Error generating QR code: " + error.message); // Use footer for errors
             console.error("QR Code generation error:", error);
         }
     });
@@ -171,4 +165,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const initialContainerWidth = qrCodeImageWidth + (qrCodeImageWidth * 0.10 * 2);
         qrcodeDiv.style.width = `${initialContainerWidth}px`;
         qrcodeDiv.style.height = `${initialContainerWidth}px`;
+
+    // Initial footer message
+    updateFooterMessage('<a href="https://sandyfletcher.ca" style="color: white; text-decoration: none;">site by sandy</a>');
 });

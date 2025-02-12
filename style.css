@@ -10,33 +10,32 @@
 }
 
 :root {
-    --global-spacing: 15px; /* Adjust this value to change the overall spacing */
+    --global-spacing: 1rem /* Adjust this value to change the overall spacing */
 }
 
 body {
-    font-family: 'PressStart2P', monospace; /* Retro font */
-    margin: var(--global-spacing);
-    padding: 0;
-    background-color: black; /* Black background */
-    color: white; /* White text */
-    height: 100vh;
+    font-family: 'PressStart2P', monospace;
+    background-color: black;
+    color: white;
+    min-height: 100vh;
+    max-width: 45rem;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    align-items: center;
 }
 
 header {
     text-align: center;
     padding: var(--global-spacing);
-    background-color: black; /* Solid black */
-    color: white; /* White text */
+    background-color: black;
+    color: white;
     width: 100%;
-    height: auto; /* Adjust height as needed */
-    border-bottom: 2px solid white; /* White border */
+    height: auto;
+    border-bottom: 2px solid white;
 }
 
 header h1 {
-    margin-bottom: 0.5em; /* Adjust spacing */
+    margin-bottom: 0.5em;
 }
 
 header h3 {
@@ -44,38 +43,38 @@ header h3 {
 }
 
 main {
-    width: 80%;
+    width: 98%;
     padding: var(--global-spacing);
-    background-color: black; /* Solid black */
-    box-shadow: none; /* Remove shadow */
+    background-color: black;
+    box-shadow: none;
     margin-bottom: 0px;
-    flex-grow: 1;
+    flex-grow: 1; /* Allow main to take up remaining space */
     display: flex;
     flex-direction: column;
 }
 
 #generation-options {
-    height: auto; /* Adjust height as needed */
+    height: auto;
     margin-bottom: var(--global-spacing);
 }
 
 .tab-container {
     display: flex;
     justify-content: space-around;
-    height: auto; /* Adjust height as needed */
+    height: auto;
     align-items: center;
 }
 
 .tab-container label {
-    padding: calc(var(--global-spacing) / 2) var(--global-spacing); /* Adjust padding as needed */
-    background-color: black; /* Black tabs */
-    border: 2px solid white; /* White border */
+    padding: calc(var(--global-spacing) / 2) var(--global-spacing);
+    background-color: black;
+    border: 2px solid white;
     cursor: pointer;
     height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white; /* White text */
+    color: white;
 }
 
 .tab-container input[type="radio"] {
@@ -83,20 +82,14 @@ main {
 }
 
 .tab-container input[type="radio"]:checked + label {
-    background-color: white; /* White when selected */
-    color: black; /* Black text when selected */
+    background-color: white;
+    color: black;
 }
 
 #input-area {
-    min-height: 15rem; /* Adjust this value as needed */
+    min-height: 13rem;
     margin-bottom: var(--global-spacing);
-    position: relative; /* Needed for absolute positioning of inputs */
-}
-
-fieldset {
-    border: none;
-    padding: 0;
-    margin-bottom: var(--global-spacing); /* Add some spacing below the fieldset */
+    position: relative;
 }
 
 textarea,
@@ -104,19 +97,19 @@ input[type="text"],
 input[type="email"],
 input[type="password"],
 select {
-    padding: 8px;
-    border: 2px solid white; /* White border */
-    border-radius: 0; /* Remove rounded corners */
-    margin-bottom: var(--global-spacing);
+    padding: 0.5rem;
+    border: 2px solid white;
+    border-radius: 0;
     width: 100%;
     box-sizing: border-box;
-    font-family: 'PressStart2P', monospace; /* Retro font */
-    background-color: black; /* Black inputs */
-    color: white; /* White text */
-}
-
-textarea {
-    resize: none; /* No resizing */
+    font-family: 'PressStart2P', monospace;
+    background-color: black;
+    color: white;
+    text-align: center;
+    display: flex;
+    align-items: center; /* Center items vertically */
+    justify-content: center;
+    resize: none;
 }
 
 #link-text-input,
@@ -131,20 +124,20 @@ textarea {
 
 button {
     padding: var(--global-spacing);
-    background-color: white; /* White button */
-    color: black; /* Black text */
+    background-color: white;
+    color: black;
     border: none;
     cursor: pointer;
     height: auto;
     width: 100%;
-    border-radius: 0; /* Remove rounded corners */
+    border-radius: 0;
     font-size: 1em;
-    font-family: 'PressStart2P', monospace; /* Retro font */
-    text-transform: uppercase; /* Optional: Make button text uppercase */
+    font-family: 'PressStart2P', monospace;
+    text-transform: uppercase;
 }
 
 button:hover {
-    background-color: #ddd; /* Slightly darker hover */
+    background-color: #ddd;
 }
 
 #qrcode {
@@ -153,30 +146,46 @@ button:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white; /* Ensure white background for border */
+    background-color: white;
     padding: var(--global-spacing);
     border: 2px solid white;
-    margin-left: auto; /* Add auto margin to the left */
-    margin-right: auto; /* Add auto margin to the right */
-}
-
-#error-message {
-    color: red; /* Keep error messages red */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Checkbox styling */
 .checkbox-container {
     display: flex;
-    align-items: center; /* Vertically center items */
-    margin-bottom: 5px; /* Add space below each container */
+    align-items: center;
+    margin-bottom: 5px;
 }
 
 .checkbox-container label {
-    margin-right: 10px; /* Add space between checkbox and text */
-    display: inline-block; /* Removes block-level margin */
+    margin-right: 10px;
+    display: inline-block;
 }
 
 /* Style the Checkboxes */
 .checkbox-container input[type="checkbox"] {
-    margin-right: 5px; /* Add space between checkbox and text */
+    margin-right: 5px;
+}
+
+/* Footer Styles */
+footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: var(--global-spacing);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    font-size: 0.8em;
+    border-top: 2px solid white;
+    height: auto;
+}
+
+footer a {
+    color: white;
+    text-decoration: none;
 }
