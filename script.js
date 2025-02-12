@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 if (!isValidEmail(email)) {
-                    updateFooterMessage("Invalid Email Format.  Email must be in the format <name>@<domain>.<tld> .");
+                    updateFooterMessage("Email must be in the format name@domain.tld");
                     return;
                 }
                 qrText = formatVCard(name, phone, email, address);
