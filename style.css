@@ -3,91 +3,108 @@
 @font-face {font-family: 'Marker'; src: url('assets/Marker.ttf') format('truetype'); font-display: block;}
 @font-face {font-family: 'Pixelify'; src: url('assets/Pixelify.ttf') format('truetype'); font-display: block;}
 @font-face {font-family: 'Bungee'; src: url('assets/Bungee.ttf') format('truetype'); font-display: block;}
+
 /* RESET / GLOBAL */
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
+
+:root {
+    --spacing-unit: clamp(1rem, 2vw, 1.5rem);
+    --content-width: 45rem;
+}
+
 body {
     font-family: 'PressStart2P', monospace;
     background-color: black;
     color: white;
     min-height: 100vh;
-    max-width: 45rem;
+    max-width: var(--content-width);
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    position: relative;
+    padding-bottom: 3rem; /* Space for footer */
 }
+
 /* HEADER */
 header {
     text-align: center;
-    padding: 1rem;
+    padding: var(--spacing-unit);
     background-color: black;
     color: white;
-    height: auto;
     border-bottom: 2px solid white;
 }
+
 header h1 {
     font-family: 'PressStart2P';
     font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: calc(var(--spacing-unit) * 0.5);
 }
+
 header h3 {
     font-family: 'Pixelify';
     font-size: clamp(1rem, 2.5vw, 2rem);
 }
+
 /* MAIN */
 main {
+    flex: 1;
     width: 100%;
-    padding: 1rem 0.1rem;
+    padding: var(--spacing-unit);
     background-color: black;
-    box-shadow: none;
-    margin-bottom: 0;
     display: flex;
     flex-direction: column;
+    gap: var(--spacing-unit);
 }
+
 /* OPTIONS */
-.tab-container {
-    display: flex;
-    justify-content: space-around;
-    height: auto;
-    align-items: center;
-}
 .tab-container label {
-    padding: 0.5rem 1rem;
+    padding: calc(var(--spacing-unit) * 0.5) var(--spacing-unit);
     background-color: black;
     border: 2px solid white;
     cursor: pointer;
-    height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     font-size: clamp(0.75rem, 2vw, 1rem);
+    text-align: center;     /* Add this */
+    min-width: 120px;       /* Add this - adjust value as needed */
+    height: 3rem;           /* Add this - adjust value as needed */
 }
+
+.tab-container {
+    display: flex;
+    justify-content: center;  /* Change from space-around to center */
+    gap: calc(var(--spacing-unit) * 0.5);
+}
+
 .tab-container input[type="radio"] {
     display: none;
 }
+
 .tab-container input[type="radio"]:checked + label {
     background-color: white;
     color: black;
 }
+
 /* INPUT AREAS */
 #input-area {
     min-height: 13rem;
     position: relative;
-    margin: 1rem 0;
-
 }
+
 textarea,
 input[type="text"],
 input[type="email"],
 input[type="password"] {
-    padding: 0.5rem;
+    padding: calc(var(--spacing-unit) * 0.5);
     border: 2px solid white;
     border-radius: 0;
     width: 100%;
-    box-sizing: border-box;
     background-color: black;
     color: white;
     text-align: center;
@@ -104,51 +121,55 @@ input[type="password"] {
     width: 100%;
     height: 100%;
 }
+
 #contact-info-inputs {
     position: relative;
     display: none;
     flex-direction: column;
-    justify-content: space-between;
+    gap: calc(var(--spacing-unit) * 0.5);
 }
+
 #wifi-code-inputs {
     position: relative;
     display: none;
     flex-direction: column;
-    justify-content: space-between;
+    gap: calc(var(--spacing-unit) * 0.5);
 }
+
 /* BUTTON */
 button {
-    padding: 1rem;
+    padding: var(--spacing-unit);
     background-color: white;
     color: black;
     border: none;
     cursor: pointer;
     margin: 0 auto;
-    height: auto;
     width: 80%;
     border-radius: 0;
     font-size: clamp(1rem, 2vw, 1.2rem);
     font-family: 'PressStart2P', monospace;
-    text-transform: uppercase;
 }
+
 button:hover {
     background-color: #ddd;
 }
+
 /* QR CODE */
 #qrcode {
     display: flex;
-    flex: 1;
     justify-content: center;
     align-items: center;
-    margin: 1rem auto 0;
+    margin: var(--spacing-unit) 0;
 }
+
 #qr-container {
     width: 256px;
     height: 256px;
     background-color: white;
-    position: relative; /* For absolute positioning of images */
-    overflow: hidden; /* Hide any overflow during transition */
+    position: relative;
+    overflow: hidden;
 }
+
 #qr-container img {
     position: absolute;
     top: 0;
@@ -156,46 +177,57 @@ button:hover {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    transition: opacity 0.3s ease-in-out; /* Fade transition */
+    transition: opacity 0.3s ease-in-out;
 }
+
 #qr-container #qr-placeholder {
     opacity: 1;
-    z-index: 1; /* Ensure it's initially on top */
+    z-index: 1;
 }
+
 #qr-container #qr-code-image {
     opacity: 0;
-    z-index: 2; /* Ensure it's on top during transition */
+    z-index: 2;
 }
+
 #qr-container #qr-code-image.loaded {
-    opacity: 1; /* Fade in the QR code */
+    opacity: 1;
 }
+
 /* CHECKBOXES */
 .checkbox-container {
     display: flex;
     align-items: center;
+    gap: calc(var(--spacing-unit) * 0.25);
 }
+
 .checkbox-container label {
     display: inline-block;
     font-size: clamp(0.75rem, 2vw, 1rem);
 }
+
 /* FOOTER */
 footer {
-    position: absolute;
+    position: fixed;
     bottom: 0;
-    width: 45rem;
+    width: var(--content-width);
     border-top: 2px solid white;
     height: 3rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: black;
 }
+
 #footer-content {
     text-align: center;
 }
+
 #footer-message {
-    margin: 0.2rem;
+    margin: calc(var(--spacing-unit) * 0.2);
     font-size: clamp(0.6rem, 1.5vw, 0.8rem);
 }
+
 footer a {
     color: white;
     text-decoration: none;
