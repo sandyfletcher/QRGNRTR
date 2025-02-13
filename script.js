@@ -25,7 +25,7 @@ function updateFooterMessage(message) {
 }
 // main function
 document.addEventListener('DOMContentLoaded', function() {
-    const linkTextInput = document.getElementById('link-text-input');
+    const linkTextInput = document.getElementById('text-input');
     const contactInfoInputs = document.getElementById('contact-info-inputs');
     const wifiCodeInputs = document.getElementById('wifi-code-inputs');
     const generateButton = document.getElementById('generate-button');
@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
         wifiCodeInputs.style.display = 'none';
 
         switch (selectedTab) {
-            case 'link-text':
+            case 'text':
                 linkTextInput.style.display = 'block';
                 break;
             case 'contact-info':
@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const maxLength = 1000;
     
         switch (selectedTab) {
-            case 'link-text':
+            case 'text':
                 qrText = linkTextInput.value;
                 if (qrText.length > maxLength) {
                     updateFooterMessage(`Input text exceeds the maximum length of ${maxLength} characters.`);

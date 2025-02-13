@@ -9,9 +9,6 @@
     margin: 0;
     padding: 0;
 }
-:root {
-    --global-spacing: 1rem;
-}
 body {
     font-family: 'PressStart2P', monospace;
     background-color: black;
@@ -25,22 +22,23 @@ body {
 /* HEADER */
 header {
     text-align: center;
-    padding: var(--global-spacing);
+    padding: 1rem;
     background-color: black;
     color: white;
     height: auto;
     border-bottom: 2px solid white;
 }
 header h1 {
-    margin-bottom: 0.5em;
+    font-size: clamp(2rem, 5vw, 3rem);
 }
 header h3 {
     font-family: 'Bungee';
+    font-size: clamp(1rem, 2.5vw, 2rem);
 }
 /* MAIN */
 main {
-    width: 98%;
-    padding: var(--global-spacing);
+    width: 100%;
+    padding: 1rem 0.1rem;
     background-color: black;
     box-shadow: none;
     margin-bottom: 0;
@@ -48,22 +46,18 @@ main {
     display: flex;
     flex-direction: column;
 }
-
-/* Generation Options Styles */
+/* OPTIONS */
 #generation-options {
     height: auto;
-    margin-bottom: var(--global-spacing);
 }
-
 .tab-container {
     display: flex;
     justify-content: space-around;
     height: auto;
     align-items: center;
 }
-
 .tab-container label {
-    padding: calc(var(--global-spacing) / 2) var(--global-spacing);
+    padding: 0.5rem 1rem;
     background-color: black;
     border: 2px solid white;
     cursor: pointer;
@@ -72,29 +66,27 @@ main {
     align-items: center;
     justify-content: center;
     color: white;
+    font-size: clamp(0.75rem, 2vw, 1rem);
 }
-
 .tab-container input[type="radio"] {
     display: none;
 }
-
 .tab-container input[type="radio"]:checked + label {
     background-color: white;
     color: black;
 }
-
-/* Input Area Styles */
+/* INPUT AREAS */
 #input-area {
     min-height: 13rem;
-    margin-bottom: var(--global-spacing);
     position: relative;
-}
+    margin: 1rem 0;
 
+}
 textarea,
 input[type="text"],
 input[type="email"],
 input[type="password"] {
-    padding: 0.5rem;
+    padding: 1rem;
     border: 2px solid white;
     border-radius: 0;
     width: 100%;
@@ -105,9 +97,17 @@ input[type="password"] {
     text-align: center;
     display: block;
     resize: none;
+    font-size: clamp(0.75rem, 2vw, 1rem);
 }
 
-#link-text-input,
+#text-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 #contact-info-inputs,
 #wifi-code-inputs {
     position: absolute;
@@ -131,15 +131,16 @@ input[type="password"] {
 
 /* Button Styles */
 button {
-    padding: var(--global-spacing);
+    padding: 1rem;
     background-color: white;
     color: black;
     border: none;
     cursor: pointer;
+    margin: 0 auto;
     height: auto;
-    width: 100%;
+    width: 80%;
     border-radius: 0;
-    font-size: 1em;
+    font-size: clamp(1rem, 2vw, 1.2rem);
     font-family: 'PressStart2P', monospace;
     text-transform: uppercase;
 }
@@ -150,15 +151,13 @@ button:hover {
 
 /* QR Code Styles */
 #qrcode {
-    margin-top: var(--global-spacing);
     text-align: center;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: auto;
-    margin-right: auto;
-}
+    margin: 1rem auto;
 
+}
 #qr-container {
     width: 256px;
     height: 256px;
@@ -166,7 +165,6 @@ button:hover {
     position: relative; /* For absolute positioning of images */
     overflow: hidden; /* Hide any overflow during transition */
 }
-
 #qr-container img {
     position: absolute;
     top: 0;
@@ -176,33 +174,28 @@ button:hover {
     object-fit: contain;
     transition: opacity 0.3s ease-in-out; /* Fade transition */
 }
-
 #qr-container #qr-placeholder {
     opacity: 1;
     z-index: 1; /* Ensure it's initially on top */
 }
-
 #qr-container #qr-code-image {
     opacity: 0;
     z-index: 2; /* Ensure it's on top during transition */
 }
-
 #qr-container #qr-code-image.loaded {
     opacity: 1; /* Fade in the QR code */
 }
-
 /* Checkbox styling */
 .checkbox-container {
     display: flex;
     align-items: center;
     margin-bottom: 0.5rem;
 }
-
 .checkbox-container label {
     margin-left: 0.5rem;
     display: inline-block;
+    font-size: clamp(0.75rem, 2vw, 1rem);
 }
-
 /* Footer Styles */
 footer {
     background-color: black;
@@ -212,12 +205,11 @@ footer {
     width: 100%;
     max-width: 45rem;
     margin: 0 auto;
-    font-size: 0.8em;
+    font-size: clamp(0.6rem, 1.5vw, 0.8rem);
     border-top: 2px solid white;
     height: 4rem;
     position: relative;
 }
-
 #footer-content {
     position: absolute;
     top: 0;
@@ -230,12 +222,10 @@ footer {
     align-items: center;
     text-align: center;
 }
-
 #footer-message {
     margin: 0;
-    padding: 0;
+    padding: 0.5rem;
 }
-
 footer a {
     color: white;
     text-decoration: none;
