@@ -1,28 +1,31 @@
-// validate email
+// validate email only if it's not empty
 function isValidEmail(email) {
+    if (!email.trim()) return true; // empty email is valid
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
+
 // format contact info to vCard
 function formatVCard(name, phone, email, address) {
-    let vCard = `BEGIN:VCARD
-VERSION:4.0
-FN:${name}
-TEL:${phone}
-EMAIL:${email}
-ADR:${address}
-END:VCARD`;
+    let vCard = `BEGIN:VCARD\nVERSION:4.0\nFN:${name}`;
+    if (phone.trim()) vCard += `\nTEL:${phone}`;
+    if (email.trim()) vCard += `\nEMAIL:${email}`;
+    if (address.trim()) vCard += `\nADR:${address}`;
+    vCard += `\nEND:VCARD`;
     return vCard;
 }
+
 // format WiFi info
 function formatWifiCode(ssid, password, hidden, noPassword) {
-    let security = (noPassword) ? 'nopass' : 'WPA';  // consider switching to WPA2 if issues are reported
+    let security = (noPassword) ? 'nopass' : 'WPA';
     return `WIFI:S:${ssid};T:${security};P:${password};H:${hidden};`;
 }
+
 // function to update footer message
 function updateFooterMessage(message) {
     document.getElementById('footer-message').innerHTML = message;
 }
+
 // main function
 document.addEventListener('DOMContentLoaded', function() {
     const linkTextInput = document.getElementById('text-input');
@@ -34,7 +37,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const qrContainer = document.getElementById('qr-container');
     const qrPlaceholder = document.getElementById('qr-placeholder');
     const qrCodeImage = document.getElementById('qr-code-image');
-// switch between input areas
+
+    // switch between input areas
     function switchInputArea(selectedTab) {
         linkTextInput.style.display = 'none';
         contactInfoInputs.style.display = 'none';
@@ -52,62 +56,89 @@ document.addEventListener('DOMContentLoaded', function() {
                 break;
         }
     }
-// listener for tab changes
+
+    // listener for tab changes
     document.querySelectorAll('input[name="tab"]').forEach(radio => {
         radio.addEventListener('change', function() {
             switchInputArea(this.value);
         });
     });
-// QRcode generation
-generateButton.addEventListener('click', function() {
+
+    // QRcode generation
+    generateButton.addEventListener('click', function() {
         let selectedTab = document.querySelector('input[name="tab"]:checked').value;
         let qrText = "";
         const maxLength = 1000;
+
         switch (selectedTab) {
             case 'text':
-                qrText = linkTextInput.value;
+                qrText = linkTextInput.value.trim();
+                if (!qrText) {
+                    updateFooterMessage("Please enter some text or a URL to generate a QR code.");
+                    return;
+                }
                 if (qrText.length > maxLength) {
                     updateFooterMessage(`Input text exceeds the maximum length of ${maxLength} characters.`);
                     return;
                 }
                 break;
+
             case 'contact-info':
-                const name = document.getElementById('contact-name').value;
-                const phone = document.getElementById('contact-phone').value;
-                const email = document.getElementById('contact-email').value;
-                const address = document.getElementById('contact-address').value;
+                const name = document.getElementById('contact-name').value.trim();
+                const phone = document.getElementById('contact-phone').value.trim();
+                const email = document.getElementById('contact-email').value.trim();
+                const address = document.getElementById('contact-address').value.trim();
+
+                if (!name && !phone && !email && !address) {
+                    updateFooterMessage("Please enter at least one piece of contact information.");
+                    return;
+                }
+
                 if (name.length > 100 || phone.length > 20 || email.length > 100 || address.length > 200) {
                     updateFooterMessage(`One or more fields exceed the maximum length.`);
                     return;
                 }
+
                 if (!isValidEmail(email)) {
                     updateFooterMessage("Email must be in the format (name)@(domain).(tld)");
                     return;
                 }
+
                 qrText = formatVCard(name, phone, email, address);
                 break;
+
             case 'wifi-code':
                 const ssid = document.getElementById('wifi-ssid').value;
                 const password = document.getElementById('wifi-password').value;
                 const hidden = document.getElementById('wifi-hidden').checked;
                 const noPassword = document.getElementById('wifi-nopass').checked;
+
+                if (!ssid) {
+                    updateFooterMessage("Please enter the network name (SSID).");
+                    return;
+                }
+
                 if (ssid.length > 32 || password.length > 64) {
                     updateFooterMessage(`SSID or Password exceeds the maximum length.`);
                     return;
                 }
+
                 if (password === "" && !noPassword) {
                     updateFooterMessage("Please enter a password, or check the 'Open (No Password)' box if the network is open.");
                     return;
                 }
+
                 qrText = formatWifiCode(ssid, password, hidden, noPassword);
                 break;
         }
+
         try {
-// Create offscreen canvas
+            // Create offscreen canvas
             const offscreenCanvas = document.createElement('canvas');
             offscreenCanvas.width = qrCodeImageWidth;
             offscreenCanvas.height = qrCodeImageWidth;
-// Generate QR code on the offscreen canvas
+
+            // Generate QR code on the offscreen canvas
             let qrcode = new QRCode(offscreenCanvas, {
                 text: qrText,
                 width: qrCodeImageWidth,
@@ -117,9 +148,11 @@ generateButton.addEventListener('click', function() {
                 correctLevel: QRCode.CorrectLevel.H,
                 drawBackgroundColor: true
             });
-// Reset for transition
+
+            // Reset for transition
             qrCodeImage.classList.remove('loaded');
-// Wait for image creation and then pad
+
+            // Wait for image creation and then pad
             const checkImage = setInterval(() => {
                 const img = offscreenCanvas.querySelector('img');
                 if (img) {
@@ -128,7 +161,7 @@ generateButton.addEventListener('click', function() {
                     // Create a new canvas with the same dimensions as the QR container
                     const canvas = document.createElement('canvas');
                     const containerWidth = qrContainer.clientWidth;
-                    const paddingSize = Math.floor(containerWidth * 0.0625); // 16px equivalent for 256px width
+                    const paddingSize = Math.floor(containerWidth * 0.0625);
                     
                     canvas.width = containerWidth;
                     canvas.height = containerWidth;
@@ -152,14 +185,16 @@ generateButton.addEventListener('click', function() {
             }, 50);
     
         } catch (error) {
-// Reset the display on error
+            // Reset the display on error
             qrCodeImage.classList.remove('loaded');
             updateFooterMessage("Error generating QR code: " + error.message);
             console.error("QR Code generation error:", error);
         }
     });
-// Initialize the correct input area on page load
+
+    // Initialize the correct input area on page load
     switchInputArea(document.querySelector('input[name="tab"]:checked').value);
-// Initial footer message
+
+    // Initial footer message
     updateFooterMessage('<a href="https://sandyfletcher.ca" style="color: white; text-decoration: none;">site by sandy</a>');
 });
