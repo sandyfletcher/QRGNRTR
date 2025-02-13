@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Generate Shareable QR Codes">
     <title>QRGNRTR</title>
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
     <link rel="stylesheet" href="style.css">
     <script src="js/qrcode.js"></script>
 </head>
@@ -46,8 +47,12 @@
             </div>
         </div>
         <button id="generate-button">Generate</button>
-        <div id="qrcode"></div>
-    </main>
+        <div id="qrcode">
+            <div id="qr-container">
+                <img id="qr-placeholder" src="assets/smile.png" alt="Placeholder">
+                <img id="qr-code-image" alt="QR Code">
+            </div>
+        </div>    </main>
     <footer>
         <div id="footer-content">
             <p id="footer-message"><a href="https://sandyfletcher.ca">site by sandy</a></p>

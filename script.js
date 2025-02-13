@@ -1,20 +1,9 @@
-// Function to validate URL format
-function isValidURL(string) {
-    try {
-        new URL(string);
-        return true;
-    } catch (_) {
-        return false;
-    }
-}
-
-// Function to validate email format
+// validate email
 function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
-
-// Function to format contact info into a vCard
+// format contact info to vCard
 function formatVCard(name, phone, email, address) {
     let vCard = `BEGIN:VCARD
 VERSION:4.0
@@ -25,18 +14,16 @@ ADR:${address}
 END:VCARD`;
     return vCard;
 }
-
-// Function to format WiFi info into a WiFi code string
+// format WiFi info
 function formatWifiCode(ssid, password, hidden, noPassword) {
-    let security = (noPassword) ? 'nopass' : 'WPA'; // Default to WPA if password provided
+    let security = (noPassword) ? 'nopass' : 'WPA';  // consider switching to WPA2 if issues are reported
     return `WIFI:S:${ssid};T:${security};P:${password};H:${hidden};`;
 }
-
-// Function to update the footer message
+// function to update footer message
 function updateFooterMessage(message) {
-    document.getElementById('footer-message').innerHTML = message; // Use innerHTML
+    document.getElementById('footer-message').innerHTML = message;
 }
-
+// main function
 document.addEventListener('DOMContentLoaded', function() {
     const linkTextInput = document.getElementById('link-text-input');
     const contactInfoInputs = document.getElementById('contact-info-inputs');
@@ -44,29 +31,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const generateButton = document.getElementById('generate-button');
     const qrcodeDiv = document.getElementById('qrcode');
     const qrCodeImageWidth = 256;
-
-    // Create a permanent container for QR codes that will persist
-    const permanentContainer = document.createElement('div');
-    permanentContainer.style.width = `${qrCodeImageWidth}px`;
-    permanentContainer.style.height = `${qrCodeImageWidth}px`;
-    permanentContainer.style.display = 'inline-block';
-
-    // Create and add the placeholder image
-    const placeholderImage = document.createElement('img');
-    placeholderImage.src = 'assets/smile.png';
-    placeholderImage.style.width = '100%';
-    placeholderImage.style.height = '100%';
-    placeholderImage.style.objectFit = 'contain';
-    permanentContainer.appendChild(placeholderImage);
-    
-    qrcodeDiv.appendChild(permanentContainer);
-
-    // Remove any padding from qrcodeDiv
-    qrcodeDiv.style.padding = '0';
-    qrcodeDiv.style.backgroundColor = 'transparent';
-    qrcodeDiv.style.border = 'none';
-
-    // Function to switch between input areas
+    const qrContainer = document.getElementById('qr-container');
+    const qrPlaceholder = document.getElementById('qr-placeholder');
+    const qrCodeImage = document.getElementById('qr-code-image');
+// switch between input areas
     function switchInputArea(selectedTab) {
         linkTextInput.style.display = 'none';
         contactInfoInputs.style.display = 'none';
@@ -77,15 +45,14 @@ document.addEventListener('DOMContentLoaded', function() {
                 linkTextInput.style.display = 'block';
                 break;
             case 'contact-info':
-                contactInfoInputs.style.display = 'flex';  // Changed to 'flex'
+                contactInfoInputs.style.display = 'flex';
                 break;
             case 'wifi-code':
-                wifiCodeInputs.style.display = 'flex';  // Changed to 'flex'
+                wifiCodeInputs.style.display = 'flex';
                 break;
         }
     }
-
-    // Event listener for tab changes
+// listener for tab changes
     document.querySelectorAll('input[name="tab"]').forEach(radio => {
         radio.addEventListener('change', function() {
             switchInputArea(this.value);
@@ -96,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
         let selectedTab = document.querySelector('input[name="tab"]:checked').value;
         let qrText = "";
         const maxLength = 1000;
-
+    
         switch (selectedTab) {
             case 'link-text':
                 qrText = linkTextInput.value;
@@ -104,24 +71,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     updateFooterMessage(`Input text exceeds the maximum length of ${maxLength} characters.`);
                     return;
                 }
-                if (qrText.startsWith('http://') || qrText.startsWith('https://')) {
-                    if (!isValidURL(qrText)) {
-                        updateFooterMessage("Invalid URL. Please enter a valid URL.");
-                        return;
-                    }
-                }
                 break;
             case 'contact-info':
                 const name = document.getElementById('contact-name').value;
                 const phone = document.getElementById('contact-phone').value;
                 const email = document.getElementById('contact-email').value;
                 const address = document.getElementById('contact-address').value;
-
+    
                 if (name.length > 100 || phone.length > 20 || email.length > 100 || address.length > 200) {
                     updateFooterMessage(`One or more contact information fields exceed the maximum length.`);
                     return;
                 }
-
+    
                 if (!isValidEmail(email)) {
                     updateFooterMessage("Email must be in the format name@domain.tld");
                     return;
@@ -133,35 +94,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 const password = document.getElementById('wifi-password').value;
                 const hidden = document.getElementById('wifi-hidden').checked;
                 const noPassword = document.getElementById('wifi-nopass').checked;
-
+    
                 if (ssid.length > 32 || password.length > 64) {
                     updateFooterMessage(`SSID or Password exceeds the maximum length.`);
                     return;
                 }
-
+    
                 if (password === "" && !noPassword) {
                     updateFooterMessage("Please enter a password, or check the 'Open (No Password)' box if the network is open.");
                     return;
                 }
-
+    
                 qrText = formatWifiCode(ssid, password, hidden, noPassword);
                 break;
         }
-
-        // QR Code Generation
+// QRcode generation
         try {
-            permanentContainer.innerHTML = ''; // Clear the placeholder image
-            
-            // Create the QR code container
-            const qrContainer = document.createElement('div');
-            qrContainer.style.backgroundColor = '#ffffff';
-            qrContainer.style.width = '100%';
-            qrContainer.style.height = '100%';
-            
-            // Add it to our permanent container
-            permanentContainer.appendChild(qrContainer);
-
-            let qrcode = new QRCode(qrContainer, {
+// Create offscreen canvas
+            const offscreenCanvas = document.createElement('canvas');
+            offscreenCanvas.width = qrCodeImageWidth;
+            offscreenCanvas.height = qrCodeImageWidth;
+// Generate QR code on the offscreen canvas
+            let qrcode = new QRCode(offscreenCanvas, {
                 text: qrText,
                 width: qrCodeImageWidth,
                 height: qrCodeImageWidth,
@@ -170,49 +124,46 @@ document.addEventListener('DOMContentLoaded', function() {
                 correctLevel: QRCode.CorrectLevel.H,
                 drawBackgroundColor: true
             });
-
-            // Add event listener for when image is created
+// Reset for transition
+            qrCodeImage.classList.remove('loaded');
+// Wait for image creation and then pad
             const checkImage = setInterval(() => {
-                const img = qrContainer.querySelector('img');
+                const img = offscreenCanvas.querySelector('img');
                 if (img) {
                     clearInterval(checkImage);
-                    
-                    // Create a canvas to manipulate the image
+// Create a canvas to manipulate the image
                     const canvas = document.createElement('canvas');
                     const paddingSize = 16;
                     canvas.width = img.width + (paddingSize * 2);
                     canvas.height = img.height + (paddingSize * 2);
-                    
+    
                     const ctx = canvas.getContext('2d');
                     ctx.fillStyle = '#ffffff';
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
                     ctx.drawImage(img, paddingSize, paddingSize);
-                    
+    
                     const paddedImage = new Image();
-                    paddedImage.src = canvas.toDataURL('image/png');
-                    paddedImage.style.display = 'block';
-                    paddedImage.style.width = '100%';
-                    paddedImage.style.height = '100%';
-                    paddedImage.style.objectFit = 'contain';
-                    
-                    qrContainer.innerHTML = '';
-                    qrContainer.appendChild(paddedImage);
+                    paddedImage.onload = () => {
+// Fade in the QR code image
+                        qrCodeImage.classList.add('loaded');
+                    };
+    
+                    paddedImage.src = canvas.toDataURL('image/png'); // Set src *after* onload
+                    qrCodeImage.src = paddedImage.src; // Set the QR code image source
+    
+                    updateFooterMessage("QR Code Generated!");
                 }
             }, 50);
-
-            updateFooterMessage("QR Code Generated!");
+    
         } catch (error) {
-            // If there's an error, show the placeholder image again
-            permanentContainer.innerHTML = '';
-            permanentContainer.appendChild(placeholderImage);
+// Reset the display on error
+            qrCodeImage.classList.remove('loaded');
             updateFooterMessage("Error generating QR code: " + error.message);
             console.error("QR Code generation error:", error);
         }
     });
-    
-    // Initialize the correct input area on page load
+// Initialize the correct input area on page load
     switchInputArea(document.querySelector('input[name="tab"]:checked').value);
-
-    // Initial footer message
+// Initial footer message
     updateFooterMessage('<a href="https://sandyfletcher.ca" style="color: white; text-decoration: none;">site by sandy</a>');
 });
