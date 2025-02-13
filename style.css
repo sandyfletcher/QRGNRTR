@@ -99,7 +99,8 @@ header h3 {
 
 /* INPUT AREAS */
 #input-area {
-    min-height: 13rem;
+    height: auto;
+    min-height: 12rem;
     position: relative;
 }
 
@@ -166,8 +167,8 @@ button:hover {
 }
 
 #qr-container {
-    width: 256px;
-    height: 256px;
+    width: 16rem;
+    height: 16rem;
     position: relative;
     overflow: hidden;
 }
