@@ -13,60 +13,46 @@
         <h1>QRGNRTR</h1>
         <h3>Shareable QR Codes</h3>
     </header>
-
     <main>
         <div id="generation-options">
             <div class="tab-container">
                 <input type="radio" id="link-text-tab" name="tab" value="link-text" checked>
                 <label for="link-text-tab">Link / Text</label>
-            
                 <input type="radio" id="contact-info-tab" name="tab" value="contact-info">
                 <label for="contact-info-tab">Contact Info</label>
-            
                 <input type="radio" id="wifi-code-tab" name="tab" value="wifi-code">
                 <label for="wifi-code-tab">WiFi Access</label>
             </div>
         </div>
-
         <div id="input-area">
-            <!-- Link/Text Input -->
             <textarea id="link-text-input" placeholder="Enter text or URL" maxlength="1000"></textarea>
-
-            <!-- Contact Info Input -->
-            <div id="contact-info-inputs" style="display: none;">
+            <div id="contact-info-inputs">
                 <input type="text" id="contact-name" placeholder="Name" maxlength="100"><br>
                 <input type="text" id="contact-phone" placeholder="Phone" maxlength="20"><br>
                 <input type="email" id="contact-email" placeholder="Email" maxlength="100"><br>
                 <input type="text" id="contact-address" placeholder="Address" maxlength="200"><br>
             </div>
-
-            <!-- WiFi Code Input -->
-            <div id="wifi-code-inputs" style="display: none;">
+            <div id="wifi-code-inputs">
                 <input type="text" id="wifi-ssid" placeholder="SSID (Network Name)" maxlength="32">
                 <input type="password" id="wifi-password" placeholder="Password" maxlength="64"><br>
-
-                <input type="checkbox" id="wifi-hidden">
-                <label for="wifi-hidden">Network Hidden?</label>
-
-                <input type="checkbox" id="wifi-nopass">
-                <label for="wifi-nopass">Open (No Password)</label>
-
+                <div class="checkbox-container">
+                  <input type="checkbox" id="wifi-hidden">
+                  <label for="wifi-hidden">Network Hidden?</label>
+                </div>
+                <div class="checkbox-container">
+                  <input type="checkbox" id="wifi-nopass">
+                  <label for="wifi-nopass">Open (No Password)</label>
+                </div>
             </div>
-
         </div>
-
         <button id="generate-button">Generate</button>
-
         <div id="qrcode"></div>
-
     </main>
-
     <footer>
         <div id="footer-content">
             <p id="footer-message"><a href="https://sandyfletcher.ca">site by sandy</a></p>
         </div>
     </footer>
-
     <script src="script.js"></script>
 </body>
 </html>

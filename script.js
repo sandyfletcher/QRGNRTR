@@ -77,10 +77,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 linkTextInput.style.display = 'block';
                 break;
             case 'contact-info':
-                contactInfoInputs.style.display = 'block';
+                contactInfoInputs.style.display = 'flex';  // Changed to 'flex'
                 break;
             case 'wifi-code':
-                wifiCodeInputs.style.display = 'block';
+                wifiCodeInputs.style.display = 'flex';  // Changed to 'flex'
                 break;
         }
     }

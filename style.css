@@ -3,6 +3,7 @@
 @font-face {font-family: 'Pixelify'; src: url('assets/Pixelify.ttf') format('truetype'); font-display: block;}
 @font-face {font-family: 'Bungee'; src: url('assets/Bungee.ttf') format('truetype'); font-display: block;}
 
+/* Resets and Global Styles */
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
@@ -10,7 +11,7 @@
 }
 
 :root {
-    --global-spacing: 1rem /* Adjust this value to change the overall spacing */
+    --global-spacing: 1rem; /* Adjust this value to change the overall spacing */
 }
 
 body {
@@ -24,12 +25,12 @@ body {
     flex-direction: column;
 }
 
+/* Header Styles */
 header {
     text-align: center;
     padding: var(--global-spacing);
     background-color: black;
     color: white;
-    /* width: 100%;  Remove this line */
     height: auto;
     border-bottom: 2px solid white;
 }
@@ -42,17 +43,19 @@ header h3 {
     font-family: 'Bungee';
 }
 
+/* Main Styles */
 main {
     width: 98%;
     padding: var(--global-spacing);
     background-color: black;
     box-shadow: none;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     flex-grow: 1; /* Allow main to take up remaining space */
     display: flex;
     flex-direction: column;
 }
 
+/* Generation Options Styles */
 #generation-options {
     height: auto;
     margin-bottom: var(--global-spacing);
@@ -86,6 +89,7 @@ main {
     color: black;
 }
 
+/* Input Area Styles */
 #input-area {
     min-height: 13rem;
     margin-bottom: var(--global-spacing);
@@ -95,8 +99,7 @@ main {
 textarea,
 input[type="text"],
 input[type="email"],
-input[type="password"],
-select {
+input[type="password"] {
     padding: 0.5rem;
     border: 2px solid white;
     border-radius: 0;
@@ -106,7 +109,7 @@ select {
     background-color: black;
     color: white;
     text-align: center;
-    display: block; /* ensure items fill up available space */
+    display: block;
     resize: none;
 }
 
@@ -122,25 +125,17 @@ select {
 
 #contact-info-inputs,
 #wifi-code-inputs {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    display: flex;              /* Enable Flexbox */
-    flex-direction: column;    /* Stack items vertically */
-    justify-content: space-between; /* Distribute space evenly */
+    display: none; /* Initially hide all input groups */
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.input-group {
-    margin-bottom: 0; /* Override previous value, ensure no extra spacing */
+#contact-info-inputs input,
+#wifi-code-inputs input {
+    margin-bottom: 0.5rem;
 }
 
-.input-group label {
-    display: block; /* Ensure the label takes full width */
-    margin-bottom: 0.25rem; /* Small space between the label and input */
-}
-
+/* Button Styles */
 button {
     padding: var(--global-spacing);
     background-color: white;
@@ -159,6 +154,7 @@ button:hover {
     background-color: #ddd;
 }
 
+/* QR Code Styles */
 #qrcode {
     margin-top: var(--global-spacing);
     text-align: center;
@@ -173,17 +169,12 @@ button:hover {
 .checkbox-container {
     display: flex;
     align-items: center;
-    margin-bottom: 5px;
+    margin-bottom: 0.5rem;
 }
 
 .checkbox-container label {
-    margin-right: 10px;
+    margin-left: 0.5rem;
     display: inline-block;
-}
-
-/* Style the Checkboxes */
-.checkbox-container input[type="checkbox"] {
-    margin-right: 5px;
 }
 
 /* Footer Styles */
@@ -197,21 +188,21 @@ footer {
     margin: 0 auto;
     font-size: 0.8em;
     border-top: 2px solid white;
-    height: 4rem; /* Fixed height for the footer */
+    height: 4rem;
     position: relative;
 }
 
 #footer-content {
-    position: absolute; /*Or just relative, both work*/
-    top: 0; /* Anchor to the top */
-    bottom: 0; /* Anchor to the bottom */
+    position: absolute;
+    top: 0;
+    bottom: 0;
     left: 0;
     right: 0;
     width: 100%;
-    display: flex;             /* Enable Flexbox */
-    justify-content: center; /* Horizontally center */
-    align-items: center;     /* Vertically center */
-    text-align: center;       /* Ensure text is centered within the flex item */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 #footer-message {
