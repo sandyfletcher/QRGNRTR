@@ -165,9 +165,6 @@ button:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white;
-    padding: var(--global-spacing);
-    border: 2px solid white;
     margin-left: auto;
     margin-right: auto;
 }
