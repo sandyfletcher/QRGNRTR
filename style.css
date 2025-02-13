@@ -3,14 +3,12 @@
 @font-face {font-family: 'Marker'; src: url('assets/Marker.ttf') format('truetype'); font-display: block;}
 @font-face {font-family: 'Pixelify'; src: url('assets/Pixelify.ttf') format('truetype'); font-display: block;}
 @font-face {font-family: 'Bungee'; src: url('assets/Bungee.ttf') format('truetype'); font-display: block;}
-
 /* RESET / GLOBAL */
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
-
 :root {
     --spacing-unit: clamp(1rem, 2vw, 1.5rem);
     --content-width: 45rem;
@@ -26,43 +24,39 @@ body {
     display: flex;
     flex-direction: column;
     position: relative;
-    padding-bottom: 3rem; /* Space for footer */
 }
-
+main {
+    flex: 1;
+    width: 100%;
+    padding: var(--spacing-unit);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-unit);
+}
 /* HEADER */
 header {
     text-align: center;
     padding: var(--spacing-unit);
     background-color: black;
     color: white;
-    border-bottom: 2px solid white;
+    border: 2px solid white;
 }
-
 header h1 {
     font-family: 'PressStart2P';
     font-size: clamp(2rem, 5vw, 3rem);
-    margin-bottom: calc(var(--spacing-unit) * 0.5);
 }
-
 header h3 {
     font-family: 'Pixelify';
     font-size: clamp(1rem, 2.5vw, 2rem);
 }
-
-/* MAIN */
-main {
-    flex: 1;
-    width: 100%;
-    padding: var(--spacing-unit);
-    background-color: black;
+/* OPTIONS */
+.tab-container {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     gap: var(--spacing-unit);
 }
-
-/* OPTIONS */
 .tab-container label {
-    padding: calc(var(--spacing-unit) * 0.5) var(--spacing-unit);
+    padding: var(--spacing-unit);
     background-color: black;
     border: 2px solid white;
     cursor: pointer;
@@ -70,22 +64,14 @@ main {
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: clamp(0.75rem, 2vw, 1rem);
-    text-align: center;     /* Add this */
-    min-width: 120px;       /* Add this - adjust value as needed */
-    height: 3rem;           /* Add this - adjust value as needed */
+    font-size: clamp(0.75rem, 1.8vw, 1rem);
+    text-align: center;
+    min-width: 120px;
+    height: auto;
 }
-
-.tab-container {
-    display: flex;
-    justify-content: center;  /* Change from space-around to center */
-    gap: calc(var(--spacing-unit) * 0.5);
-}
-
 .tab-container input[type="radio"] {
     display: none;
 }
-
 .tab-container input[type="radio"]:checked + label {
     background-color: white;
     color: black;
@@ -110,14 +96,12 @@ input[type="password"] {
     text-align: center;
     display: block;
     resize: none;
-    font-family: 'Pixelify', monospace;
+    font-family: monospace;
     font-size: clamp(1rem, 1vw, 1.5rem);
 }
 
 #text-input {
     position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
 }
@@ -159,7 +143,6 @@ button:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: var(--spacing-unit) 0;
 }
 
 #qr-container {
@@ -208,26 +191,24 @@ button:hover {
 
 /* FOOTER */
 footer {
+    border-top: 2px solid white;
     position: fixed;
     bottom: 0;
-    width: var(--content-width);
-    border-top: 2px solid white;
     height: 3rem;
+    max-width: var(--content-width);
+    width: 100%;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: black;
 }
-
 #footer-content {
     text-align: center;
 }
-
 #footer-message {
     margin: calc(var(--spacing-unit) * 0.2);
     font-size: clamp(0.6rem, 1.5vw, 0.8rem);
 }
-
 footer a {
     color: white;
     text-decoration: none;
