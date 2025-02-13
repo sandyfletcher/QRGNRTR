@@ -58,12 +58,11 @@ document.addEventListener('DOMContentLoaded', function() {
             switchInputArea(this.value);
         });
     });
-
-    generateButton.addEventListener('click', function() {
+// QRcode generation
+generateButton.addEventListener('click', function() {
         let selectedTab = document.querySelector('input[name="tab"]:checked').value;
         let qrText = "";
         const maxLength = 1000;
-    
         switch (selectedTab) {
             case 'text':
                 qrText = linkTextInput.value;
@@ -77,14 +76,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 const phone = document.getElementById('contact-phone').value;
                 const email = document.getElementById('contact-email').value;
                 const address = document.getElementById('contact-address').value;
-    
                 if (name.length > 100 || phone.length > 20 || email.length > 100 || address.length > 200) {
-                    updateFooterMessage(`One or more contact information fields exceed the maximum length.`);
+                    updateFooterMessage(`One or more fields exceed the maximum length.`);
                     return;
                 }
-    
                 if (!isValidEmail(email)) {
-                    updateFooterMessage("Email must be in the format name@domain.tld");
+                    updateFooterMessage("Email must be in the format (name)@(domain).(tld)");
                     return;
                 }
                 qrText = formatVCard(name, phone, email, address);
@@ -94,21 +91,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 const password = document.getElementById('wifi-password').value;
                 const hidden = document.getElementById('wifi-hidden').checked;
                 const noPassword = document.getElementById('wifi-nopass').checked;
-    
                 if (ssid.length > 32 || password.length > 64) {
                     updateFooterMessage(`SSID or Password exceeds the maximum length.`);
                     return;
                 }
-    
                 if (password === "" && !noPassword) {
                     updateFooterMessage("Please enter a password, or check the 'Open (No Password)' box if the network is open.");
                     return;
                 }
-    
                 qrText = formatWifiCode(ssid, password, hidden, noPassword);
                 break;
         }
-// QRcode generation
         try {
 // Create offscreen canvas
             const offscreenCanvas = document.createElement('canvas');
