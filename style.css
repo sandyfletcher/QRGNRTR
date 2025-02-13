@@ -3,16 +3,28 @@
 @font-face {font-family: 'Marker'; src: url('assets/fonts/Marker.ttf') format('truetype'); font-display: block;}
 @font-face {font-family: 'Pixelify'; src: url('assets/fonts/Pixelify.ttf') format('truetype'); font-display: block;}
 @font-face {font-family: 'Bungee'; src: url('assets/fonts/Bungee.ttf') format('truetype'); font-display: block;}
+
 /* RESET / GLOBAL */
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
+
 :root {
-    --spacing-unit: clamp(1rem, 2vw, 1.5rem);
+    --spacing-base: 1rem;
     --content-width: 45rem;
+    
+    /* Typography Scale */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.25rem;
+    --text-xl: 1.5rem;
+    --text-2xl: 2rem;
+    --text-3xl: 2.5rem;
 }
+
 body {
     font-family: 'PressStart2P', monospace;
     background-color: black;
@@ -23,39 +35,46 @@ body {
     display: flex;
     flex-direction: column;
     position: relative;
+    font-size: var(--text-base);
 }
+
 main {
     flex: 1;
     width: 100%;
-    padding: var(--spacing-unit);
+    padding: var(--spacing-base);
     display: flex;
     flex-direction: column;
-    gap: var(--spacing-unit);
+    gap: var(--spacing-base);
 }
+
 /* HEADER */
 header {
     text-align: center;
-    padding: var(--spacing-unit);
+    padding: var(--spacing-base);
     background-color: black;
     color: white;
     border: 2px solid white;
 }
+
 header h1 {
     font-family: 'PressStart2P';
-    font-size: clamp(2rem, 5vw, 3rem);
+    font-size: var(--text-3xl);
 }
+
 header h3 {
     font-family: 'Pixelify';
-    font-size: clamp(1rem, 2.5vw, 2rem);
+    font-size: var(--text-xl);
 }
+
 /* OPTIONS */
 .tab-container {
     display: flex;
     justify-content: center;
-    gap: var(--spacing-unit);
+    gap: var(--spacing-base);
 }
+
 .tab-container label {
-    padding: var(--spacing-unit);
+    padding: var(--spacing-base);
     background-color: black;
     border: 2px solid white;
     cursor: pointer;
@@ -63,14 +82,16 @@ header h3 {
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: clamp(0.75rem, 1.8vw, 1rem);
+    font-size: var(--text-sm);
     text-align: center;
     min-width: 120px;
     height: auto;
 }
+
 .tab-container input[type="radio"] {
     display: none;
 }
+
 .tab-container input[type="radio"]:checked + label {
     background-color: white;
     color: black;
@@ -86,7 +107,7 @@ textarea,
 input[type="text"],
 input[type="email"],
 input[type="password"] {
-    padding: calc(var(--spacing-unit) * 0.5);
+    padding: calc(var(--spacing-base) * 0.5);
     border: 2px solid white;
     border-radius: 0;
     width: 100%;
@@ -96,7 +117,7 @@ input[type="password"] {
     display: block;
     resize: none;
     font-family: monospace;
-    font-size: clamp(1rem, 1vw, 1.5rem);
+    font-size: var(--text-base);
 }
 
 #text-input {
@@ -109,19 +130,19 @@ input[type="password"] {
     position: relative;
     display: none;
     flex-direction: column;
-    gap: calc(var(--spacing-unit) * 0.5);
+    gap: calc(var(--spacing-base) * 0.5);
 }
 
 #wifi-code-inputs {
     position: relative;
     display: none;
     flex-direction: column;
-    gap: calc(var(--spacing-unit) * 0.5);
+    gap: calc(var(--spacing-base) * 0.5);
 }
 
 /* BUTTON */
 button {
-    padding: var(--spacing-unit);
+    padding: var(--spacing-base);
     background-color: white;
     color: black;
     border: none;
@@ -129,7 +150,7 @@ button {
     margin: 0 auto;
     width: 80%;
     border-radius: 0;
-    font-size: clamp(1rem, 2vw, 1.2rem);
+    font-size: var(--text-lg);
     font-family: 'PressStart2P', monospace;
 }
 
@@ -180,12 +201,12 @@ button:hover {
 .checkbox-container {
     display: flex;
     align-items: center;
-    gap: calc(var(--spacing-unit) * 0.25);
+    gap: calc(var(--spacing-base) * 0.25);
 }
 
 .checkbox-container label {
     display: inline-block;
-    font-size: clamp(0.75rem, 2vw, 1rem);
+    font-size: var(--text-sm);
 }
 
 /* FOOTER */
@@ -201,14 +222,54 @@ footer {
     align-items: center;
     justify-content: center;
 }
+
 #footer-content {
     text-align: center;
 }
+
 #footer-message {
-    margin: calc(var(--spacing-unit) * 0.2);
-    font-size: clamp(0.6rem, 1.5vw, 0.8rem);
+    margin: calc(var(--spacing-base) * 0.2);
+    font-size: var(--text-xs);
 }
+
 footer a {
     color: white;
     text-decoration: none;
+}
+
+/* Media Queries */
+@media screen and (max-width: 480px) {
+    :root {
+        --spacing-base: 0.75rem;
+        --text-3xl: 2rem;
+        --text-2xl: 1.5rem;
+        --text-xl: 1.25rem;
+        --text-lg: 1.125rem;
+        --text-base: 0.875rem;
+        --text-sm: 0.75rem;
+        --text-xs: 0.625rem;
+    }
+    button {
+        width: 100%;
+    }
+    #qr-container {
+        width: 200px;
+        height: 200px;
+    }
+    #footer {
+        visibility: hidden;
+    }
+
+}
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    :root {
+        --spacing-base: 0.875rem;
+        --text-3xl: 2.25rem;
+        --text-2xl: 1.75rem;
+        --text-xl: 1.375rem;
+        --text-lg: 1.25rem;
+        --text-base: 1rem;
+        --text-sm: 0.875rem;
+        --text-xs: 0.75rem;
+    }
 }
