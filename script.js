@@ -124,27 +124,30 @@ generateButton.addEventListener('click', function() {
                 const img = offscreenCanvas.querySelector('img');
                 if (img) {
                     clearInterval(checkImage);
-// Create a canvas to manipulate the image
+                    
+                    // Create a new canvas with the same dimensions as the QR container
                     const canvas = document.createElement('canvas');
-                    const paddingSize = 16;
-                    canvas.width = img.width + (paddingSize * 2);
-                    canvas.height = img.height + (paddingSize * 2);
-    
+                    const containerWidth = qrContainer.clientWidth;
+                    const paddingSize = Math.floor(containerWidth * 0.0625); // 16px equivalent for 256px width
+                    
+                    canvas.width = containerWidth;
+                    canvas.height = containerWidth;
+
                     const ctx = canvas.getContext('2d');
                     ctx.fillStyle = '#ffffff';
                     ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    ctx.drawImage(img, paddingSize, paddingSize);
-    
+                    
+                    // Scale the QR code to fit the container while maintaining padding
+                    const qrSize = containerWidth - (paddingSize * 2);
+                    ctx.drawImage(img, paddingSize, paddingSize, qrSize, qrSize);
+
                     const paddedImage = new Image();
                     paddedImage.onload = () => {
-// Fade in the QR code image
                         qrCodeImage.classList.add('loaded');
                     };
-    
-                    paddedImage.src = canvas.toDataURL('image/png'); // Set src *after* onload
-                    qrCodeImage.src = paddedImage.src; // Set the QR code image source
-    
-                    updateFooterMessage("QR Code Generated!");
+
+                    paddedImage.src = canvas.toDataURL('image/png');
+                    qrCodeImage.src = paddedImage.src;
                 }
             }, 50);
     
