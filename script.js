@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
 
                 if (password === "" && !noPassword) {
-                    updateFooterMessage("Please enter a password, or check the 'Open (No Password)' box if the network is open.");
+                    updateFooterMessage("Please enter the password or check the box if network is open.");
                     return;
                 }
 
@@ -181,6 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     paddedImage.src = canvas.toDataURL('image/png');
                     qrCodeImage.src = paddedImage.src;
+                    updateFooterMessage("QR Code Generated!");
                 }
             }, 50);
     
