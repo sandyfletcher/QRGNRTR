@@ -1,8 +1,8 @@
 /* IMPORT */
-@font-face {font-family: 'PressStart2P'; src: url('assets/PressStart2P.ttf') format('truetype'); font-display: block;}
-@font-face {font-family: 'Marker'; src: url('assets/Marker.ttf') format('truetype'); font-display: block;}
-@font-face {font-family: 'Pixelify'; src: url('assets/Pixelify.ttf') format('truetype'); font-display: block;}
-@font-face {font-family: 'Bungee'; src: url('assets/Bungee.ttf') format('truetype'); font-display: block;}
+@font-face {font-family: 'PressStart2P'; src: url('assets/fonts/PressStart2P.ttf') format('truetype'); font-display: block;}
+@font-face {font-family: 'Marker'; src: url('assets/fonts/Marker.ttf') format('truetype'); font-display: block;}
+@font-face {font-family: 'Pixelify'; src: url('assets/fonts/Pixelify.ttf') format('truetype'); font-display: block;}
+@font-face {font-family: 'Bungee'; src: url('assets/fonts/Bungee.ttf') format('truetype'); font-display: block;}
 /* RESET / GLOBAL */
 *, *::before, *::after {
     box-sizing: border-box;
@@ -13,7 +13,6 @@
     --spacing-unit: clamp(1rem, 2vw, 1.5rem);
     --content-width: 45rem;
 }
-
 body {
     font-family: 'PressStart2P', monospace;
     background-color: black;
