@@ -10,11 +10,10 @@
     margin: 0;
     padding: 0;
 }
-
 :root {
     --spacing-base: 1rem;
     --content-width: 45rem;
-    
+
     /* Typography Scale */
     --text-xs: 0.75rem;
     --text-sm: 0.875rem;
@@ -24,22 +23,25 @@
     --text-2xl: 2rem;
     --text-3xl: 2.5rem;
 }
+html, body {
+    height: 100%; /* Ensure html and body take full height */
+}
 
 body {
     font-family: 'PressStart2P', monospace;
     background-color: black;
     color: white;
-    min-height: 100vh;
-    max-width: var(--content-width);
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
+    min-height: 100vh; /* Use min-height to fill the viewport */
+    max-width: var(--content-width); /* Limit width for readability */
+    margin: 0 auto; /* Center content horizontally */
+    display: flex;    /* Enable flexbox */
+    flex-direction: column; /* Stack elements vertically */
     position: relative;
     font-size: var(--text-base);
 }
 
 main {
-    flex: 1;
+    flex: 1; /* Allow main to grow and fill remaining space */
     width: 100%;
     padding: var(--spacing-base);
     display: flex;
@@ -212,8 +214,6 @@ button:hover {
 /* FOOTER */
 footer {
     border-top: 2px solid white;
-    position: fixed;
-    bottom: 0;
     height: 3rem;
     max-width: var(--content-width);
     width: 100%;
@@ -221,6 +221,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: auto; /* Push footer to the bottom */
 }
 
 #footer-content {
