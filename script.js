@@ -133,61 +133,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         try {
-            // Create offscreen canvas
-            const offscreenCanvas = document.createElement('canvas');
-            offscreenCanvas.width = qrCodeImageWidth;
-            offscreenCanvas.height = qrCodeImageWidth;
-
-            // Generate QR code on the offscreen canvas
-            let qrcode = new QRCode(offscreenCanvas, {
+            // Clear any existing content
+            const container = document.getElementById('qr-container');
+            container.innerHTML = '';
+            
+            // Generate QR code directly in the container
+            new QRCode(container, {
                 text: qrText,
-                width: qrCodeImageWidth,
-                height: qrCodeImageWidth,
+                width: container.clientWidth - 32, // Account for padding
+                height: container.clientWidth - 32,
                 colorDark: "#000000",
                 colorLight: "#ffffff",
-                correctLevel: QRCode.CorrectLevel.H,
-                drawBackgroundColor: true
+                correctLevel: QRCode.CorrectLevel.H
             });
-
-            // Reset for transition
-            qrCodeImage.classList.remove('loaded');
-
-            // Wait for image creation and then pad
-            const checkImage = setInterval(() => {
-                const img = offscreenCanvas.querySelector('img');
-                if (img) {
-                    clearInterval(checkImage);
-                    
-                    // Create a new canvas with the same dimensions as the QR container
-                    const canvas = document.createElement('canvas');
-                    const containerWidth = qrContainer.clientWidth;
-                    const paddingSize = Math.floor(containerWidth * 0.0625);
-                    
-                    canvas.width = containerWidth;
-                    canvas.height = containerWidth;
-
-                    const ctx = canvas.getContext('2d');
-                    ctx.fillStyle = '#ffffff';
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    
-                    // Scale the QR code to fit the container while maintaining padding
-                    const qrSize = containerWidth - (paddingSize * 2);
-                    ctx.drawImage(img, paddingSize, paddingSize, qrSize, qrSize);
-
-                    const paddedImage = new Image();
-                    paddedImage.onload = () => {
-                        qrCodeImage.classList.add('loaded');
-                    };
-
-                    paddedImage.src = canvas.toDataURL('image/png');
-                    qrCodeImage.src = paddedImage.src;
-                    updateFooterMessage("QR Code Generated!");
-                }
-            }, 50);
-    
+            
+            updateFooterMessage("QR Code Generated!");
         } catch (error) {
-            // Reset the display on error
-            qrCodeImage.classList.remove('loaded');
             updateFooterMessage("Error generating QR code: " + error.message);
             console.error("QR Code generation error:", error);
         }
