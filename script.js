@@ -1,11 +1,11 @@
-// validate email only if it's not empty
+// validate email if not empty
 function isValidEmail(email) {
     if (!email.trim()) return true; // empty email is valid
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
 
-// format contact info to vCard
+// format contact info
 function formatVCard(name, phone, email, address) {
     let vCard = `BEGIN:VCARD\nVERSION:4.0\nFN:${name}`;
     if (phone.trim()) vCard += `\nTEL:${phone}`;
@@ -21,7 +21,7 @@ function formatWifiCode(ssid, password, hidden, noPassword) {
     return `WIFI:S:${ssid};T:${security};P:${password};H:${hidden};`;
 }
 
-// function to update footer message
+// update footer message
 function updateFooterMessage(message) {
     document.getElementById('footer-message').innerHTML = message;
 }
@@ -32,13 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const contactInfoInputs = document.getElementById('contact-info-inputs');
     const wifiCodeInputs = document.getElementById('wifi-code-inputs');
     const generateButton = document.getElementById('generate-button');
-    const qrcodeDiv = document.getElementById('qrcode');
-    const qrCodeImageWidth = 256;
-    const qrContainer = document.getElementById('qr-container');
-    const qrPlaceholder = document.getElementById('qr-placeholder');
-    const qrCodeImage = document.getElementById('qr-code-image');
 
-    // switch between input areas
+// switch between input areas
     function switchInputArea(selectedTab) {
         linkTextInput.style.display = 'none';
         contactInfoInputs.style.display = 'none';
@@ -56,15 +51,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 break;
         }
     }
-
-    // listener for tab changes
+// listener for tab changes
     document.querySelectorAll('input[name="tab"]').forEach(radio => {
         radio.addEventListener('change', function() {
             switchInputArea(this.value);
         });
     });
-
-    // QRcode generation
+// QR generation
     generateButton.addEventListener('click', function() {
         let selectedTab = document.querySelector('input[name="tab"]:checked').value;
         let qrText = "";
@@ -136,17 +129,43 @@ document.addEventListener('DOMContentLoaded', function() {
             // Clear any existing content
             const container = document.getElementById('qr-container');
             container.innerHTML = '';
-            
-            // Generate QR code directly in the container
+
+            // Generate QR code with padding and white background
             new QRCode(container, {
                 text: qrText,
-                width: container.clientWidth - 32, // Account for padding
-                height: container.clientWidth - 32,
+                width: 256,  // Set explicit width
+                height: 256, // Set explicit height
                 colorDark: "#000000",
                 colorLight: "#ffffff",
-                correctLevel: QRCode.CorrectLevel.H
+                correctLevel: QRCode.CorrectLevel.H,
+                quietZone: 16,     // Add quiet zone (white border)
+                quietZoneColor: "#ffffff" // Make sure quiet zone is white
             });
+
+            // Get the generated QR code image
+            const qrImage = container.querySelector('img');
             
+            // Once the image is loaded, create a canvas to add padding
+            qrImage.onload = function() {
+                const canvas = document.createElement('canvas');
+                const padding = 32; // Adjust padding as needed
+                canvas.width = qrImage.width + (padding * 2);
+                canvas.height = qrImage.height + (padding * 2);
+                
+                const ctx = canvas.getContext('2d');
+                // Fill the entire canvas with white
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                // Draw the QR code in the center
+                ctx.drawImage(qrImage, padding, padding);
+                
+                // Replace the original image with the padded version
+                const paddedImage = new Image();
+                paddedImage.src = canvas.toDataURL('image/png');
+                container.innerHTML = '';
+                container.appendChild(paddedImage);
+            };
+
             updateFooterMessage("QR Code Generated!");
         } catch (error) {
             updateFooterMessage("Error generating QR code: " + error.message);
@@ -154,9 +173,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Initialize the correct input area on page load
+// Initialize the correct input area on page load
     switchInputArea(document.querySelector('input[name="tab"]:checked').value);
 
-    // Initial footer message
+// Initial footer message
     updateFooterMessage('<a href="https://sandyfletcher.ca" style="color: white; text-decoration: none;">site by sandy</a>');
 });
