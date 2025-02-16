@@ -87,10 +87,11 @@ header h3 {
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: var(--text-sm);
+    font-size: clamp(var(--text-sm), 1, var(--text-md));
     text-align: center;
     min-width: 120px;
     height: auto;
+    white-space: nowrap;
 }
 
 .tab-container input[type="radio"] {
