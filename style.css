@@ -167,37 +167,25 @@ button:hover {
     justify-content: center;
     align-items: center;
 }
-
-/* In style.css, modify the QR code container styles */
-
 #qr-container {
-    width: 320px;
-    height: 320px;
+    width: 16rem;
+    height: 16rem;
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
     transition: opacity 0.3s ease;
+    background-color: white;
 }
-
 #qr-container.loading {
     opacity: 0;
 }
-
 #qr-container img {
     max-width: 100%;
     height: auto;
     display: block;
     transition: opacity 0.3s ease;
 }
-
-/* Optional loading animation */
-@keyframes pulse {
-    0% { opacity: 0.5; }
-    50% { opacity: 1; }
-    100% { opacity: 0.5; }
-}
-
 #qr-container.loading::after {
     content: "";
     position: absolute;
@@ -209,7 +197,6 @@ button:hover {
     background-color: white;
     animation: pulse 1.5s infinite;
 }
-
 /* CHECKBOXES */
 .checkbox-container {
     display: flex;
