@@ -75,11 +75,12 @@ header h3 {
 .tab-container {
     display: flex;
     justify-content: center;
-    gap: var(--spacing-base);
-}
-
-.tab-container label {
-    padding: var(--spacing-base);
+    flex-wrap: wrap; /* Allow wrapping on very small screens */
+    gap: calc(var(--spacing-base) * 0.5);
+  }
+  
+  .tab-container label {
+    padding: var(--spacing-base) calc(var(--spacing-base) * 0.75);
     background-color: black;
     border: 2px solid white;
     cursor: pointer;
@@ -89,10 +90,14 @@ header h3 {
     color: white;
     font-size: var(--text-sm);
     text-align: center;
-    min-width: 120px;
+    min-width: 100px;
+    flex: 1; /* Allow equal growth */
+    max-width: 150px; /* Prevent excessive stretching */
     height: auto;
     white-space: nowrap;
-}
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
 .tab-container input[type="radio"] {
     display: none;
@@ -250,3 +255,24 @@ footer a {
     color: white;
     text-decoration: none;
 }
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .tab-container {
+      width: 100%;
+    }
+    
+    .tab-container label {
+      font-size: var(--text-xs);
+      padding: calc(var(--spacing-base) * 0.5);
+      min-width: 90px;
+    }
+  }
+  
+  @media (max-width: 420px) {
+    .tab-container label {
+      font-size: var(--text-xxs);
+      min-width: 80px;
+    }
+  }
+
