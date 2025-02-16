@@ -125,21 +125,23 @@ document.addEventListener('DOMContentLoaded', function() {
                 break;
         }
 
+
         try {
             // Clear any existing content
             const container = document.getElementById('qr-container');
             container.innerHTML = '';
+            container.classList.add('loading'); // Add loading state
 
             // Generate QR code with padding and white background
             new QRCode(container, {
                 text: qrText,
-                width: 256,  // Set explicit width
-                height: 256, // Set explicit height
+                width: 256,
+                height: 256,
                 colorDark: "#000000",
                 colorLight: "#ffffff",
                 correctLevel: QRCode.CorrectLevel.H,
-                quietZone: 16,     // Add quiet zone (white border)
-                quietZoneColor: "#ffffff" // Make sure quiet zone is white
+                quietZone: 16,
+                quietZoneColor: "#ffffff"
             });
 
             // Get the generated QR code image
@@ -148,28 +150,32 @@ document.addEventListener('DOMContentLoaded', function() {
             // Once the image is loaded, create a canvas to add padding
             qrImage.onload = function() {
                 const canvas = document.createElement('canvas');
-                const padding = 32; // Adjust padding as needed
+                const padding = 32;
                 canvas.width = qrImage.width + (padding * 2);
                 canvas.height = qrImage.height + (padding * 2);
                 
                 const ctx = canvas.getContext('2d');
-                // Fill the entire canvas with white
                 ctx.fillStyle = '#ffffff';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
-                // Draw the QR code in the center
                 ctx.drawImage(qrImage, padding, padding);
                 
-                // Replace the original image with the padded version
+                // Create new image with padding
                 const paddedImage = new Image();
+                paddedImage.style.opacity = '0'; // Start invisible
+                paddedImage.onload = function() {
+                    container.innerHTML = '';
+                    paddedImage.style.opacity = '1'; // Fade in
+                    container.appendChild(paddedImage);
+                    container.classList.remove('loading'); // Remove loading state
+                };
                 paddedImage.src = canvas.toDataURL('image/png');
-                container.innerHTML = '';
-                container.appendChild(paddedImage);
             };
 
             updateFooterMessage("QR Code Generated!");
         } catch (error) {
             updateFooterMessage("Error generating QR code: " + error.message);
             console.error("QR Code generation error:", error);
+            container.classList.remove('loading'); // Remove loading state on error
         }
     });
 
