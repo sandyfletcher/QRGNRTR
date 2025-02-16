@@ -131,6 +131,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const container = document.getElementById('qr-container');
             container.innerHTML = '';
             container.classList.add('loading'); // Add loading state
+// Remove placeholder image if it exists
+            const placeholder = container.querySelector('.placeholder-image');
+            if (placeholder) {
+                placeholder.remove();
+            }
 
             // Generate QR code with padding and white background
             new QRCode(container, {
@@ -148,6 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const qrImage = container.querySelector('img');
             
             // Once the image is loaded, create a canvas to add padding
+// Once the image is loaded, create a canvas to add padding
             qrImage.onload = function() {
                 const canvas = document.createElement('canvas');
                 const padding = 32;
@@ -162,13 +168,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Create new image with padding
                 const paddedImage = new Image();
                 paddedImage.style.opacity = '0'; // Start invisible
-                paddedImage.onload = function() {
-                    container.innerHTML = '';
-                    paddedImage.style.opacity = '1'; // Fade in
-                    container.appendChild(paddedImage);
-                    container.classList.remove('loading'); // Remove loading state
-                };
-                paddedImage.src = canvas.toDataURL('image/png');
+                paddedImage.style.width = '256px'; // Set initial size
+                paddedImage.style.height = '256px'; // Set initial size
+                
+                // Add the image to DOM before changing source
+                container.innerHTML = '';
+                container.appendChild(paddedImage);
+                
+                // Small delay to ensure CSS transition works
+                setTimeout(() => {
+                    paddedImage.onload = function() {
+                        paddedImage.style.opacity = '1'; // Fade in
+                        container.classList.remove('loading'); // Remove loading state
+                    };
+                    paddedImage.src = canvas.toDataURL('image/png');
+                }, 50);
             };
 
             updateFooterMessage("QR Code Generated!");
