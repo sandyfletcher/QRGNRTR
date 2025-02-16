@@ -58,6 +58,7 @@ header {
     background-color: black;
     color: white;
     border: 2px solid white;
+    margin-top: 0.5rem;
 }
 
 header h1 {
@@ -248,75 +249,3 @@ footer a {
     color: white;
     text-decoration: none;
 }
-
-/* MEDIA QUERIES */
-@media screen and (max-width: 768px) {
-    :root {
-        /* Reduce base spacing */
-        --spacing-base: 0.75rem;
-    }
-
-    /* Tab container adjustments */
-    .tab-container {
-        flex-wrap: wrap;
-        gap: calc(var(--spacing-base) * 0.5);
-    }
-
-    .tab-container label {
-        padding: calc(var(--spacing-base) * 0.75);
-        min-width: 100px;
-        font-size: var(--text-xs);
-    }
-
-    /* Input area adjustments */
-    #input-area {
-        min-height: 8rem;
-    }
-
-    textarea,
-    input[type="text"],
-    input[type="email"],
-    input[type="password"] {
-        font-size: var(--text-sm);
-    }
-
-    /* Button adjustments */
-    button {
-        width: 100%;
-    }
-
-    /* QR code container adjustments */
-    #qr-container {
-        width: 10rem;
-        height: 10rem;
-    }
-}
-
-/* Even smaller screens 
-@media screen and (max-width: 480px) {
-    :root {
-        --spacing-base: 0.5rem;
-    }
-
-    header h1 {
-        font-size: var(--text-2xl);
-    }
-
-    header h3 {
-        font-size: var(--text-lg);
-    }
-
-    .tab-container {
-        flex-direction: column;
-    }
-
-    .tab-container label {
-        width: 100%;
-        min-width: unset;
-    }
-
-    #qr-container {
-        width: 10rem;
-        height: 10rem;
-    }  
-}*/
