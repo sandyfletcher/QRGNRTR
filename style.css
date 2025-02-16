@@ -24,14 +24,15 @@
     --text-3xl: 2.5rem;
 }
 html, body {
-    height: 100%; /* Ensure html and body take full height */
+    min-height: 100%; /* Ensure html and body take full height */
 }
 
 body {
     font-family: 'PressStart2P', monospace;
     background-color: black;
     color: white;
-    min-height: 100vh; /* Use min-height to fill the viewport */
+    min-height: 100vh;
+    min-height: 100dvh;
     max-width: var(--content-width); /* Limit width for readability */
     margin: 0 auto; /* Center content horizontally */
     display: flex;    /* Enable flexbox */
@@ -245,99 +246,4 @@ footer {
 footer a {
     color: white;
     text-decoration: none;
-}
-
-/* MEDIA QUERIES */
-@media screen and (max-width: 768px) {
-    :root {
-        /* Reduce base spacing */
-        --spacing-base: 0.75rem;
-        --content-width: 100%;
-
-        /* Adjust typography scale for mobile */
-        --text-xs: 0.625rem;    /* 10px */
-        --text-sm: 0.75rem;     /* 12px */
-        --text-base: 0.875rem;  /* 14px */
-        --text-lg: 1rem;        /* 16px */
-        --text-xl: 1.25rem;     /* 20px */
-        --text-2xl: 1.5rem;     /* 24px */
-        --text-3xl: 1.75rem;    /* 28px */
-    }
-
-    /* Header adjustments */
-    header {
-        padding: calc(var(--spacing-base) * 0.75);
-    }
-
-    /* Tab container adjustments */
-    .tab-container {
-        flex-wrap: wrap;
-        gap: calc(var(--spacing-base) * 0.5);
-    }
-
-    .tab-container label {
-        padding: calc(var(--spacing-base) * 0.75);
-        min-width: 100px;
-        font-size: var(--text-xs);
-    }
-
-    /* Input area adjustments */
-    #input-area {
-        min-height: 10rem;
-    }
-
-    textarea,
-    input[type="text"],
-    input[type="email"],
-    input[type="password"] {
-        padding: calc(var(--spacing-base) * 0.4);
-        font-size: var(--text-sm);
-    }
-
-    /* Button adjustments */
-    button {
-        width: 100%;
-        padding: calc(var(--spacing-base) * 0.75);
-        font-size: var(--text-base);
-    }
-
-    /* QR code container adjustments */
-    #qr-container {
-        width: 12rem;
-        height: 12rem;
-    }
-
-    /* Checkbox adjustments */
-    .checkbox-container label {
-        font-size: var(--text-xs);
-    }
-}
-
-/* Even smaller screens */
-@media screen and (max-width: 480px) {
-    :root {
-        --spacing-base: 0.5rem;
-    }
-
-    header h1 {
-        font-size: var(--text-2xl);
-    }
-
-    header h3 {
-        font-size: var(--text-lg);
-    }
-
-    .tab-container {
-        flex-direction: column;
-    }
-
-    .tab-container label {
-        width: 100%;
-        min-width: unset;
-    }
-
-    #qr-container {
-        width: 10rem;
-        height: 10rem;
-    }
 }
