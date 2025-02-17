@@ -63,7 +63,9 @@ function switchInputArea(selectedTab) {
 }
 
 // DOWNLOAD QR CODE
-function downloadQRCode(dataUrl, filename = 'qr-code.png') {
+function downloadQRCode(dataUrl) {
+    const date = new Date().toISOString().split('T')[0];
+    const filename = `qr-code-${date}.png`;
     const downloadLink = document.createElement('a');
     downloadLink.href = dataUrl;
     downloadLink.download = filename;
