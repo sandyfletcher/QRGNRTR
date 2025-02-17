@@ -56,7 +56,7 @@ main {
 /* Header */
 header {
     text-align: center;
-    padding: var(--spacing-base);
+    padding: var(--spacing-base) var(--spacing-base) calc(var(--spacing-base)*0.6);
     background-color: black;
     color: white;
     border: 2px solid white;
