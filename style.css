@@ -1,20 +1,20 @@
-/* IMPORT */
+/* Imports */
 @font-face {font-family: 'PressStart2P'; src: url('assets/fonts/PressStart2P.ttf') format('truetype'); font-display: block;}
 @font-face {font-family: 'Marker'; src: url('assets/fonts/Marker.ttf') format('truetype'); font-display: block;}
 @font-face {font-family: 'Pixelify'; src: url('assets/fonts/Pixelify.ttf') format('truetype'); font-display: block;}
 @font-face {font-family: 'Bungee'; src: url('assets/fonts/Bungee.ttf') format('truetype'); font-display: block;}
 
-/* RESET / GLOBAL */
+/* Reset */
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
+
+/* Base */
 :root {
     --spacing-base: 1rem;
     --content-width: 45rem;
-
-    /* Typography Scale */
     --text-xxs: 0.5rem;
     --text-xs: 0.75rem;
     --text-sm: 0.875rem;
@@ -24,8 +24,9 @@
     --text-2xl: 2rem;
     --text-3xl: 2.5rem;
 }
-html, body {
-    min-height: 100%; /* Ensure html and body take full height */
+
+html {
+    min-height: 100%;
 }
 
 body {
@@ -34,16 +35,16 @@ body {
     color: white;
     min-height: 100vh;
     min-height: 100dvh;
-    max-width: var(--content-width); /* Limit width for readability */
-    margin: 0 auto; /* Center content horizontally */
-    display: flex;    /* Enable flexbox */
-    flex-direction: column; /* Stack elements vertically */
+    max-width: var(--content-width);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
     position: relative;
     font-size: var(--text-base);
 }
 
 main {
-    flex: 1; /* Allow main to grow and fill remaining space */
+    flex: 1;
     width: 100%;
     padding: var(--spacing-base);
     display: flex;
@@ -51,7 +52,7 @@ main {
     gap: var(--spacing-base);
 }
 
-/* HEADER */
+/* Header */
 header {
     text-align: center;
     padding: var(--spacing-base);
@@ -71,15 +72,15 @@ header h3 {
     font-size: var(--text-xl);
 }
 
-/* OPTIONS */
+/* Tabs */
 .tab-container {
     display: flex;
     justify-content: center;
-    flex-wrap: wrap; /* Allow wrapping on very small screens */
+    flex-wrap: wrap;
     gap: calc(var(--spacing-base) * 0.5);
-  }
-  
-  .tab-container label {
+}
+
+.tab-container label {
     padding: var(--spacing-base) calc(var(--spacing-base) * 0.75);
     background-color: black;
     border: 2px solid white;
@@ -91,13 +92,13 @@ header h3 {
     font-size: var(--text-sm);
     text-align: center;
     min-width: 100px;
-    flex: 1; /* Allow equal growth */
-    max-width: 30%; /* Prevent excessive stretching */
+    flex: 1;
+    max-width: 30%;
     height: auto;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-  }
+}
 
 .tab-container input[type="radio"] {
     display: none;
@@ -108,7 +109,7 @@ header h3 {
     color: black;
 }
 
-/* INPUT AREAS */
+/* Input Area */
 #input-area {
     height: auto;
     min-height: 12rem;
@@ -145,6 +146,15 @@ input[type="password"] {
     gap: calc(var(--spacing-base) * 0.5);
 }
 
+#wifi-code-inputs {
+    position: relative;
+    display: none;
+    flex-direction: column;
+    gap: calc(var(--spacing-base) * 0.5);
+    min-height: 12rem;
+}
+
+/* Toggle */
 .toggle-box {
     padding: 0.5rem;
     border: 2px solid green;
@@ -162,15 +172,7 @@ input[type="password"] {
     border-color: red;
 }
 
-#wifi-code-inputs {
-    position: relative;
-    display: none;
-    flex-direction: column;
-    gap: calc(var(--spacing-base) * 0.5);
-    min-height: 12rem; /* Maintains consistent height with other tabs */
-}
-
-/* BUTTON */
+/* Button */
 button {
     padding: var(--spacing-base);
     background-color: white;
@@ -188,12 +190,13 @@ button:hover {
     background-color: #ddd;
 }
 
-/* QR CODE */
+/* QR Code */
 #qrcode {
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 #qr-container {
     width: 16rem;
     height: 16rem;
@@ -204,15 +207,18 @@ button:hover {
     transition: opacity 0.3s ease;
     background-color: white;
 }
+
 #qr-container.loading {
     opacity: 0;
 }
+
 #qr-container img {
     max-width: 100%;
     height: auto;
     display: block;
     transition: opacity 0.3s ease;
 }
+
 #qr-container.loading::after {
     content: "";
     position: absolute;
@@ -224,6 +230,7 @@ button:hover {
     background-color: white;
     animation: pulse 1.5s infinite;
 }
+
 .placeholder-image {
     max-width: 100%;
     height: auto;
@@ -235,19 +242,8 @@ button:hover {
 #qr-container:has(img:not(.placeholder-image)) .placeholder-image {
     display: none;
 }
-/* CHECKBOXES */
-.checkbox-container {
-    display: flex;
-    align-items: center;
-    gap: calc(var(--spacing-base) * 0.25);
-}
 
-.checkbox-container label {
-    display: inline-block;
-    font-size: var(--text-sm);
-}
-
-/* FOOTER */
+/* Footer */
 footer {
     border-top: 2px solid white;
     height: 3rem;
@@ -257,7 +253,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: auto; /* Push footer to the bottom */
+    margin-top: auto;
 }
 
 #footer-content {
@@ -274,20 +270,17 @@ footer a {
     text-decoration: none;
 }
 
-/* Responsive adjustments */
+/* Smaller Screens */
 @media (max-width: 600px) {
-
     :root {
         --spacing-base: 0.5rem;
     }
 
     .tab-container {
-      width: 100%;
+        width: 100%;
     }
     
     .tab-container label {
-      font-size: var(--text-xs);
+        font-size: var(--text-xs);
     }
-  }
-
-
+}
