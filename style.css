@@ -30,6 +30,7 @@ html {
 }
 
 body {
+    padding: var(--spacing-base) var(--spacing-base) 0;
     font-family: 'PressStart2P', monospace;
     background-color: black;
     color: white;
@@ -59,7 +60,6 @@ header {
     background-color: black;
     color: white;
     border: 2px solid white;
-    margin-top: 0.5rem;
 }
 
 header h1 {
