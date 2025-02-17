@@ -1,47 +1,32 @@
 /* Imports */
-@font-face {font-family: 'PressStart2P'; src: url('assets/fonts/PressStart2P.ttf') format('truetype'); font-display: block;}
-@font-face {font-family: 'Marker'; src: url('assets/fonts/Marker.ttf') format('truetype'); font-display: block;}
+@font-face {font-family: 'Geo'; src: url('assets/fonts/Geo.ttf') format('truetype'); font-display: block;}
 @font-face {font-family: 'Pixelify'; src: url('assets/fonts/Pixelify.ttf') format('truetype'); font-display: block;}
-@font-face {font-family: 'Bungee'; src: url('assets/fonts/Bungee.ttf') format('truetype'); font-display: block;}
-
+@font-face {font-family: 'PressStart2P'; src: url('assets/fonts/PressStart2P.ttf') format('truetype'); font-display: block;}
 /* Reset */
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
-
 /* Base */
 :root {
     --spacing-base: 1rem;
-    --content-width: 45rem;
-    --text-xxs: 0.5rem;
-    --text-xs: 0.75rem;
-    --text-sm: 0.875rem;
-    --text-base: 1rem;
-    --text-lg: 1.25rem;
-    --text-xl: 1.5rem;
-    --text-2xl: 2rem;
-    --text-3xl: 2.5rem;
 }
-
 html {
     min-height: 100%;
 }
-
 body {
     padding: var(--spacing-base) var(--spacing-base) 0;
-    font-family: 'PressStart2P', monospace;
-    background-color: black;
-    color: white;
+    margin: 0 auto;
     min-height: 100vh;
     min-height: 100dvh;
-    max-width: var(--content-width);
-    margin: 0 auto;
+    max-width: 45rem;
     display: flex;
     flex-direction: column;
-    position: relative;
-    font-size: var(--text-base);
+    background-color: black;
+    font-family: 'PressStart2P', monospace;
+    color: white;
+    font-size: 1rem;
 }
 
 main {
@@ -56,20 +41,18 @@ main {
 /* Header */
 header {
     text-align: center;
-    padding: var(--spacing-base) var(--spacing-base) calc(var(--spacing-base)*0.6);
-    background-color: black;
+    padding: var(--spacing-base) var(--spacing-base) calc(var(--spacing-base)*0.5);
     color: white;
     border: 2px solid white;
 }
 
 header h1 {
-    font-family: 'PressStart2P';
-    font-size: var(--text-3xl);
+    font-size: 2.5rem;
 }
 
 header h3 {
     font-family: 'Pixelify';
-    font-size: var(--text-xl);
+    font-size: 1.5rem;
 }
 
 /* Tabs */
@@ -90,7 +73,7 @@ header h3 {
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: var(--text-sm);
+    font-size: 0.8rem;
     text-align: center;
     min-width: 100px;
     flex: 1;
@@ -117,10 +100,8 @@ header h3 {
     position: relative;
 }
 
-textarea,
-input[type="text"],
-input[type="email"],
-input[type="password"] {
+input:not([type="radio"]),
+textarea {
     padding: calc(var(--spacing-base) * 0.5);
     border: 2px solid white;
     border-radius: 0;
@@ -130,8 +111,8 @@ input[type="password"] {
     text-align: center;
     display: block;
     resize: none;
-    font-family: monospace;
-    font-size: var(--text-base);
+    font-family: 'Geo';
+    font-size: 1rem;
 }
 
 #text-input {
@@ -157,16 +138,16 @@ input[type="password"] {
 
 /* Toggle */
 .toggle-box {
-    padding: 0.5rem;
+    padding: 1rem;
     border: 2px solid green;
     background-color: black;
     color: white;
     text-align: center;
-    font-family: monospace;
-    font-size: var(--text-base);
+    font-size: 0.75rem;
     cursor: pointer;
     transition: border-color 0.3s ease;
     user-select: none;
+    margin-top: 1rem;
 }
 
 .toggle-box[aria-pressed="true"] {
@@ -183,7 +164,7 @@ button {
     margin: 0 auto;
     width: 80%;
     border-radius: 0;
-    font-size: var(--text-lg);
+    font-size: 1.25rem;
     font-family: 'PressStart2P', monospace;
 }
 
@@ -248,7 +229,7 @@ button:hover {
 footer {
     border-top: 2px solid white;
     height: 3rem;
-    max-width: var(--content-width);
+    max-width: 45rem;
     width: 100%;
     margin: 0 auto;
     display: flex;
@@ -263,7 +244,7 @@ footer {
 
 #footer-message {
     margin: calc(var(--spacing-base) * 0.2);
-    font-size: var(--text-xs);
+    font-size: 0.75rem;
 }
 
 footer a {
@@ -276,9 +257,9 @@ footer a {
         --spacing-base: 0.6rem;
     }
     .tab-container label {
-        font-size: var(--text-xxs);
+        font-size: 0.5rem;
     }
     button {
-        font-size: var(--text-base);
+        font-size: 1rem;
     }
 }
