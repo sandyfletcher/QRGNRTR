@@ -1,65 +1,49 @@
-// Validation Functions
+// FORMAT EMAIL
 function isValidEmail(email) {
-    if (!email.trim()) return true; // empty email is valid
+    if (!email.trim()) return true;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
-
-// Formatting Functions
+// FORMAT CONTACT
 function formatVCard(name, phone, email, address) {
     let vCard = `BEGIN:VCARD\nVERSION:4.0\nFN:${name}`;
-    
     if (phone.trim()) vCard += `\nTEL:${phone}`;
     if (email.trim()) vCard += `\nEMAIL:${email}`;
     if (address.trim()) vCard += `\nADR:${address}`;
-    
     vCard += `\nEND:VCARD`;
     return vCard;
 }
-
+// FORMAT WIFI
 function formatWifiCode(ssid, password, hidden) {
     let security = password.trim() ? 'WPA' : 'nopass';
     return `WIFI:S:${ssid};T:${security};P:${password};H:${hidden};`;
 }
-
-// UI Update Functions
+// FOOTER MESSAGES
 function updateFooterMessage(message) {
     document.getElementById('footer-message').innerHTML = message;
 }
-
+// NETWORK TOGGLE
 function initializeNetworkVisibility() {
     const toggleBox = document.getElementById('network-visibility');
     const hiddenInput = document.getElementById('wifi-hidden');
-    
     if (!toggleBox || !hiddenInput) return;
-    
     toggleBox.addEventListener('click', function() {
         const isHidden = toggleBox.getAttribute('aria-pressed') === 'true';
         toggleBox.setAttribute('aria-pressed', (!isHidden).toString());
         toggleBox.textContent = isHidden ? 'Network: Visible' : 'Network: Hidden';
         hiddenInput.value = (!isHidden).toString();
     });
-
-    // Make it keyboard accessible
-    toggleBox.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            this.click();
-        }
-    });
 }
-
+// TAB SWITCHING
 function switchInputArea(selectedTab) {
     const linkTextInput = document.getElementById('text-input');
     const contactInfoInputs = document.getElementById('contact-info-inputs');
     const wifiCodeInputs = document.getElementById('wifi-code-inputs');
-    
-    // Hide all inputs
+// HIDE ALL
     linkTextInput.style.display = 'none';
     contactInfoInputs.style.display = 'none';
     wifiCodeInputs.style.display = 'none';
-
-    // Show selected input
+// SHOW SELECTED
     switch (selectedTab) {
         case 'text':
             linkTextInput.style.display = 'block';
@@ -72,26 +56,21 @@ function switchInputArea(selectedTab) {
             break;
     }
 }
-
-// QR Code Generation Function
+// QR GENERATION
 function generateQRCode(qrText, container) {
-    // Clear existing content
+// CLEAR AREA
     container.innerHTML = '';
     container.classList.add('loading');
-
-    // Remove placeholder image if it exists
     const placeholder = container.querySelector('.placeholder-image');
     if (placeholder) {
         placeholder.remove();
     }
-
-    // Create a hidden wrapper for the QR code
+// CREATE IMAGE CANVAS
     const qrWrapper = document.createElement('div');
     qrWrapper.style.opacity = '0';
     qrWrapper.style.transition = 'opacity 0.3s ease-in';
     container.appendChild(qrWrapper);
-
-    // Generate QR code in the wrapper
+// CALL OUTSIDE FUNCTION TO GENERATE QR
     new QRCode(qrWrapper, {
         text: qrText,
         width: 256,
@@ -102,29 +81,26 @@ function generateQRCode(qrText, container) {
         quietZone: 16,
         quietZoneColor: "#ffffff"
     });
-
-    // Process the QR code image
+// PLACE QR WITHIN BORDERED CANVAS
     const qrImage = qrWrapper.querySelector('img');
     qrImage.onload = function() {
         const canvas = document.createElement('canvas');
         const padding = 32;
         canvas.width = qrImage.width + (padding * 2);
         canvas.height = qrImage.height + (padding * 2);
-        
         const ctx = canvas.getContext('2d');
         ctx.fillStyle = '#ffffff';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(qrImage, padding, padding);
-        
-        // Create padded image
+// FINALIZED IMAGE
         const paddedImage = new Image();
         paddedImage.style.opacity = '0';
         paddedImage.style.width = '256px';
         paddedImage.style.height = '256px';
         paddedImage.style.transform = 'scale(0.95)';
         paddedImage.style.transition = 'opacity 0.3s ease-in, transform 0.3s ease-out';
-        
-        // Show the padded image once loaded
+
+// DISPLAY FINAL IMAGE
         paddedImage.onload = function() {
             qrWrapper.remove();
             container.appendChild(paddedImage);
@@ -135,33 +111,27 @@ function generateQRCode(qrText, container) {
                 paddedImage.style.transform = 'scale(1)';
             });
         };
-        
+// AVAILABLE FOR DOWNLOAD
         paddedImage.src = canvas.toDataURL('image/png');
     };
 }
-
-// Main Initialization
+// STARTUP SITE
 document.addEventListener('DOMContentLoaded', function() {
     const generateButton = document.getElementById('generate-button');
     const container = document.getElementById('qr-container');
-
-    // Initialize tab switching
+// BUILD TAB STRUCTURE
     document.querySelectorAll('input[name="tab"]').forEach(radio => {
         radio.addEventListener('change', function() {
             switchInputArea(this.value);
         });
     });
-
-    // Initialize page
     switchInputArea(document.querySelector('input[name="tab"]:checked').value);
     initializeNetworkVisibility();
-
-    // Handle QR code generation
+// GENERATE BUTTON TRIGGER
     generateButton.addEventListener('click', function() {
         const selectedTab = document.querySelector('input[name="tab"]:checked').value;
         let qrText = "";
         const maxLength = 1000;
-
         try {
             switch (selectedTab) {
                 case 'text':
@@ -174,55 +144,43 @@ document.addEventListener('DOMContentLoaded', function() {
                     }
                     qrText = textInput;
                     break;
-
                 case 'contact-info':
                     const name = document.getElementById('contact-name').value.trim();
                     const phone = document.getElementById('contact-phone').value.trim();
                     const email = document.getElementById('contact-email').value.trim();
                     const address = document.getElementById('contact-address').value.trim();
-
                     if (!name && !phone && !email && !address) {
                         throw new Error("Please enter at least one piece of contact information.");
                     }
-
                     if (name.length > 100 || phone.length > 20 || email.length > 100 || address.length > 200) {
                         throw new Error("One or more fields exceed the maximum length.");
                     }
-
                     if (!isValidEmail(email)) {
                         throw new Error("Email must be in the format (name)@(domain).(tld)");
                     }
-
                     qrText = formatVCard(name, phone, email, address);
                     break;
-
                 case 'wifi-code':
                     const ssid = document.getElementById('wifi-ssid').value;
                     const password = document.getElementById('wifi-password').value;
-                    const hidden = document.getElementById('wifi-hidden').value === 'true';
-                
+                    const hidden = document.getElementById('wifi-hidden').value === 'true'; 
                     if (!ssid) {
                         throw new Error("Please enter the network name (SSID).");
                     }
-                
                     if (ssid.length > 32 || password.length > 64) {
                         throw new Error("SSID or Password exceeds the maximum length.");
                     }
-                
                     qrText = formatWifiCode(ssid, password, hidden);
                     break;
             }
-
             generateQRCode(qrText, container);
             updateFooterMessage("QR Code Generated!");
-
         } catch (error) {
             updateFooterMessage(error.message);
             console.error("QR Code generation error:", error);
             container.classList.remove('loading');
         }
     });
-
-    // Set initial footer message
+// INITIAL FOOTER MESSAGE
     updateFooterMessage('<a href="https://sandyfletcher.ca" style="color: white; text-decoration: none;">site by sandy</a>');
 });

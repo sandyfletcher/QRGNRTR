@@ -1,14 +1,14 @@
-/* Imports */
+/* IMPORT */
 @font-face {font-family: 'Geo'; src: url('assets/fonts/Geo.ttf') format('truetype'); font-display: block;}
 @font-face {font-family: 'Pixelify'; src: url('assets/fonts/Pixelify.ttf') format('truetype'); font-display: block;}
 @font-face {font-family: 'PressStart2P'; src: url('assets/fonts/PressStart2P.ttf') format('truetype'); font-display: block;}
-/* Reset */
+/* RESET */
 *, *::before, *::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
-/* Base */
+/* BASE */
 :root {
     --spacing-base: 1rem;
 }
@@ -28,106 +28,91 @@ body {
     color: white;
     font-size: 1rem;
 }
-
 main {
-    flex: 1;
-    width: 100%;
     padding: var(--spacing-base);
+    width: 100%;
     display: flex;
     flex-direction: column;
+    flex: 1;
     gap: var(--spacing-base);
 }
-
-/* Header */
+/* HEADER */
 header {
-    text-align: center;
     padding: var(--spacing-base) var(--spacing-base) calc(var(--spacing-base)*0.5);
-    color: white;
+    margin: 0 auto;
     border: 2px solid white;
+    width: 80%;
+    text-align: center;
 }
-
 header h1 {
     font-size: 2.5rem;
 }
-
 header h3 {
     font-family: 'Pixelify';
     font-size: 1.5rem;
 }
-
-/* Tabs */
+/* TABS */
 .tab-container {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: var(--spacing-base);
     width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--spacing-base);
 }
-
 .tab-container label {
     padding: var(--spacing-base) calc(var(--spacing-base) * 0.75);
-    background-color: black;
     border: 2px solid white;
-    cursor: pointer;
+    height: auto;
+    max-width: 30%;
     display: flex;
+    flex: 1;
     align-items: center;
     justify-content: center;
     color: white;
-    font-size: 0.8rem;
     text-align: center;
-    min-width: 100px;
-    flex: 1;
-    max-width: 30%;
-    height: auto;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    font-size: 0.8rem;
+    cursor: pointer;
 }
-
 .tab-container input[type="radio"] {
     display: none;
 }
-
 .tab-container input[type="radio"]:checked + label {
     background-color: white;
     color: black;
 }
-
-/* Input Area */
+/* INPUT AREA */
 #input-area {
     height: auto;
     min-height: 12rem;
     position: relative;
 }
-
 input:not([type="radio"]),
 textarea {
-    padding: calc(var(--spacing-base) * 0.5);
-    border: 2px solid white;
-    border-radius: 0;
-    width: 100%;
-    background-color: black;
-    color: white;
-    text-align: center;
     display: block;
     resize: none;
+    padding: calc(var(--spacing-base) * 0.5);
+    border: 2px solid white;
+    width: 100%;
+    background-color: black;
+    text-align: center;
     font-family: 'Geo';
+    color: white;
     font-size: 1rem;
 }
-
 #text-input {
     position: absolute;
     width: 100%;
     height: 100%;
 }
-
 #contact-info-inputs {
     position: relative;
     display: none;
     flex-direction: column;
     gap: calc(var(--spacing-base) * 0.5);
 }
-
 #wifi-code-inputs {
     position: relative;
     display: none;
@@ -135,50 +120,42 @@ textarea {
     gap: calc(var(--spacing-base) * 0.5);
     min-height: 12rem;
 }
-
-/* Toggle */
+/* TOGGLE */
 .toggle-box {
     padding: 1rem;
+    margin-top: 1rem;
     border: 2px solid green;
-    background-color: black;
     color: white;
     text-align: center;
-    font-size: 0.75rem;
-    cursor: pointer;
+    font-size: 0.5rem;
     transition: border-color 0.3s ease;
     user-select: none;
-    margin-top: 1rem;
+    cursor: pointer;
 }
-
 .toggle-box[aria-pressed="true"] {
     border-color: red;
 }
-
 /* Button */
 button {
     padding: var(--spacing-base);
-    background-color: white;
-    color: black;
-    border: none;
-    cursor: pointer;
     margin: 0 auto;
+    border: none;
     width: 80%;
-    border-radius: 0;
-    font-size: 1.25rem;
+    background-color: white;
     font-family: 'PressStart2P', monospace;
+    color: black;
+    font-size: 1.1rem;
+    cursor: pointer;
 }
-
 button:hover {
     background-color: #ddd;
 }
-
 /* QR Code */
 #qrcode {
     display: flex;
     justify-content: center;
     align-items: center;
 }
-
 #qr-container {
     width: 16rem;
     height: 16rem;
@@ -189,43 +166,35 @@ button:hover {
     transition: opacity 0.3s ease;
     background-color: white;
 }
-
 #qr-container.loading {
     opacity: 0;
 }
-
 #qr-container img {
     max-width: 100%;
     height: auto;
     display: block;
     transition: opacity 0.3s ease;
 }
-
 #qr-container.loading::after {
     content: "";
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 64px;
-    height: 64px;
     background-color: white;
     animation: pulse 1.5s infinite;
 }
-
 .placeholder-image {
     max-width: 100%;
     height: auto;
     opacity: 1;
     transition: opacity 0.3s ease;
 }
-
 #qr-container.loading .placeholder-image,
 #qr-container:has(img:not(.placeholder-image)) .placeholder-image {
     display: none;
 }
-
-/* Footer */
+/* FOOTER */
 footer {
     border-top: 2px solid white;
     height: 3rem;
@@ -235,23 +204,18 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: auto;
 }
-
 #footer-content {
     text-align: center;
 }
-
 #footer-message {
     margin: calc(var(--spacing-base) * 0.2);
     font-size: 0.75rem;
 }
-
 footer a {
     color: white;
     text-decoration: none;
 }
-
 @media (max-width: 600px) {
     :root {
         --spacing-base: 0.6rem;
