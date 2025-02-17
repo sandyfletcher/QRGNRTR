@@ -145,11 +145,29 @@ input[type="password"] {
     gap: calc(var(--spacing-base) * 0.5);
 }
 
+.toggle-box {
+    padding: 0.5rem;
+    border: 2px solid green;
+    background-color: black;
+    color: white;
+    text-align: center;
+    font-family: monospace;
+    font-size: var(--text-base);
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+    user-select: none;
+}
+
+.toggle-box[aria-pressed="true"] {
+    border-color: red;
+}
+
 #wifi-code-inputs {
     position: relative;
     display: none;
     flex-direction: column;
     gap: calc(var(--spacing-base) * 0.5);
+    min-height: 12rem; /* Maintains consistent height with other tabs */
 }
 
 /* BUTTON */

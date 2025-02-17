@@ -30,15 +30,11 @@
             </div>
             <div id="wifi-code-inputs">
                 <input type="text" id="wifi-ssid" placeholder="SSID (Network Name)" maxlength="32">
-                <input type="password" id="wifi-password" placeholder="Password" maxlength="64"><br>
-                <div class="checkbox-container">
-                  <input type="checkbox" id="wifi-hidden">
-                  <label for="wifi-hidden">Network Hidden?</label>
+                <input type="password" id="wifi-password" placeholder="Password" maxlength="64">
+                <div id="network-visibility" class="toggle-box" role="button" tabindex="0" aria-pressed="false">
+                    Network: Visible
                 </div>
-                <div class="checkbox-container">
-                  <input type="checkbox" id="wifi-nopass">
-                  <label for="wifi-nopass">Open (No Password)</label>
-                </div>
+                <input type="hidden" id="wifi-hidden" value="false">
             </div>
         </div>
         <button id="generate-button">GENERATE</button>
