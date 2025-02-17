@@ -137,10 +137,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 case 'text':
                     const textInput = document.getElementById('text-input').value.trim();
                     if (!textInput) {
-                        throw new Error("Please enter some text or a URL to generate a QR code.");
+                        throw new Error("You need to enter SOMETHING if you want a QR code");
                     }
                     if (textInput.length > maxLength) {
-                        throw new Error(`Input text exceeds the maximum length of ${maxLength} characters.`);
+                        throw new Error(`Input is beyond maximum length.  Get below ${maxLength}, hacker`);
                     }
                     qrText = textInput;
                     break;
@@ -150,13 +150,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     const email = document.getElementById('contact-email').value.trim();
                     const address = document.getElementById('contact-address').value.trim();
                     if (!name && !phone && !email && !address) {
-                        throw new Error("Please enter at least one piece of contact information.");
+                        throw new Error("Gotta enter at least one bit of contact information");
                     }
                     if (name.length > 100 || phone.length > 20 || email.length > 100 || address.length > 200) {
-                        throw new Error("One or more fields exceed the maximum length.");
+                        throw new Error("You're beyond the maximum length, and on top of that you're hacking!");
                     }
                     if (!isValidEmail(email)) {
-                        throw new Error("Email must be in the format (name)@(domain).(tld)");
+                        throw new Error("You know Email.  It's gotta be: (name)@(domain).(tld)");
                     }
                     qrText = formatVCard(name, phone, email, address);
                     break;
@@ -165,10 +165,10 @@ document.addEventListener('DOMContentLoaded', function() {
                     const password = document.getElementById('wifi-password').value;
                     const hidden = document.getElementById('wifi-hidden').value === 'true'; 
                     if (!ssid) {
-                        throw new Error("Please enter the network name (SSID).");
+                        throw new Error("I'll need the network name (SSID)");
                     }
                     if (ssid.length > 32 || password.length > 64) {
-                        throw new Error("SSID or Password exceeds the maximum length.");
+                        throw new Error("Your network credentials are impossibly long");
                     }
                     qrText = formatWifiCode(ssid, password, hidden);
                     break;
