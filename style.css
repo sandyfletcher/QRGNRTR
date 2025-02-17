@@ -275,4 +275,7 @@ footer a {
     .tab-container label {
         font-size: var(--text-xxs);
     }
+    button {
+        font-size: var(--text-base);
+    }
 }
