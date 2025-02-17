@@ -92,7 +92,7 @@ header h3 {
     text-align: center;
     min-width: 100px;
     flex: 1; /* Allow equal growth */
-    max-width: 150px; /* Prevent excessive stretching */
+    max-width: 30%; /* Prevent excessive stretching */
     height: auto;
     white-space: nowrap;
     overflow: hidden;
@@ -258,21 +258,18 @@ footer a {
 
 /* Responsive adjustments */
 @media (max-width: 600px) {
+
+    :root {
+        --spacing-base: 0.5rem;
+    }
+
     .tab-container {
       width: 100%;
     }
     
     .tab-container label {
       font-size: var(--text-xs);
-      padding: calc(var(--spacing-base) * 0.5);
-      min-width: 90px;
     }
   }
-  
-  @media (max-width: 420px) {
-    .tab-container label {
-      font-size: var(--text-xxs);
-      min-width: 80px;
-    }
-  }
+
 
