@@ -155,13 +155,13 @@ button:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
 }
 .qr-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 0.5rem;
 }
 #qr-container {
     width: 16rem;
@@ -210,7 +210,6 @@ button:hover {
     color: #fff;
     border: 2px solid #fff;
 }
-
 #download-button:hover {
     background-color: #333;
 }
