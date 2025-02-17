@@ -279,8 +279,6 @@ footer a {
         font-size: var(--text-xxs);
     }
     button {
-        font-size: var(--text-base
-        );
+        font-size: var(--text-base);
     }
-    
 }
