@@ -272,10 +272,15 @@ footer a {
 }
 
 @media (max-width: 600px) {
+    :root {
+        --spacing-base: 0.6rem;
+    }
     .tab-container label {
         font-size: var(--text-xxs);
     }
     button {
-        font-size: var(--text-base);
+        font-size: var(--text-base
+        );
     }
+    
 }
