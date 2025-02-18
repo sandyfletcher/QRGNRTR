@@ -84,9 +84,7 @@ function generateQRCode(qrText, container) {
         placeholder.remove();
     }
 
-    // Hide download button initially
     const downloadButton = document.getElementById('download-button');
-    downloadButton.style.display = 'none';
 
     // CREATE IMAGE CANVAS
     const qrWrapper = document.createElement('div');
@@ -137,7 +135,7 @@ function generateQRCode(qrText, container) {
                 paddedImage.style.transform = 'scale(1)';
                 
                 // Show and enable download button
-                downloadButton.style.display = 'block';
+                downloadButton.classList.add('visible');
                 const dataUrl = canvas.toDataURL('image/png');
                 downloadButton.onclick = () => downloadQRCode(dataUrl);
             });
@@ -154,8 +152,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize download button
     const downloadButton = document.getElementById('download-button');
-    downloadButton.style.display = 'none';
-
+    downloadButton.classList.remove('visible');
+    
     // BUILD TAB STRUCTURE
     document.querySelectorAll('input[name="tab"]').forEach(radio => {
         radio.addEventListener('change', function() {

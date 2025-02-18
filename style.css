@@ -155,7 +155,7 @@ button:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.5rem;
+    gap: 1rem;
 }
 .qr-content {
     display: flex;
@@ -204,12 +204,20 @@ button:hover {
 /* DOWNLOAD */
 #download-button {
     width: 16rem;
-    margin: 0;
-    padding: 0.5rem 1rem;
+    padding: 1rem;
     background-color: #000;
     color: #fff;
     border: 2px solid #fff;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
+
+#download-button.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
 #download-button:hover {
     background-color: #333;
 }
